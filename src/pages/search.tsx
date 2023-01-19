@@ -7,6 +7,7 @@ import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import SearchResults from "@/components/SearchResults";
 import { typeHits, TypeResult } from "./api/types";
 import { exRes } from "./api/hello";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
@@ -36,9 +37,8 @@ const Search = () => {
     } finally {
       setLoading(false);
     }
-    // setItems(exRes.hits); //пример из api/hello.js
+    setItems(exRes.hits); //пример из api/hello.js
   };
-  if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Server Error</p>;
   if (!items)
     return <p>Your search - {inputValue} - did not match any documents.</p>;
@@ -83,7 +83,8 @@ const Search = () => {
         </div>
       </div>
       <div className="items">
-        <SearchResults items={items} />
+        {isLoading ? <LoadingSpinner/> :   <SearchResults items={items} />}
+      
       </div>
     </div>
   );
