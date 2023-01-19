@@ -99,7 +99,7 @@ figure.btn {
 [data-testid="ball-triangle-loading"] {
   justify-content: center;
 }
-.spinner{
+.spinner {
   margin: 25%;
 }
 @media screen and (max-width: 500px) {

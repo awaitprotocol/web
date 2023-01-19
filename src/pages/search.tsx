@@ -83,8 +83,8 @@ const Search = () => {
         </div>
       </div>
       <div className="items">
-        {isLoading ? <LoadingSpinner/> :   <SearchResults items={items} />}
-      
+        {isLoading ? <LoadingSpinner /> : <SearchResults items={items} />}
+
       </div>
     </div>
   );
