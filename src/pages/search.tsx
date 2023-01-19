@@ -3,13 +3,47 @@ import styles from "@/styles/search.module.css";
 import filters from "../assets/images/filter.png";
 import close from "../assets/images/close.png";
 import search from "../assets/images/icons-search.png";
+import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
+import SearchResults from "@/components/SearchResults";
+import { typeHits, TypeResult } from "./api/types";
+import { exRes } from "./api/hello";
 
 const Search = () => {
-  const getResult = () => {
-    ///
+  const [inputValue, setInputValue] = useState("");
+  const [items, setItems] = useState<typeHits[]>([]);
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const inputEl = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    inputEl.current?.focus();
+  }, []);
+
+  const handleSubmit = async (
+    e?: FormEvent<HTMLFormElement> | MouseEvent<HTMLElement, MouseEvent>
+  ) => {
+    e?.preventDefault();
+    if (!inputValue) return;
+    setLoading(true);
+    try {
+      fetch(`.../${inputValue}`)
+        .then((res) => res.json())
+        .then((data: TypeResult) => {
+          setItems(data.hits);
+        });
+    } catch (e) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+    // setItems(exRes.hits); //пример из api/hello.js
   };
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Server Error</p>;
+  if (!items)
+    return <p>Your search - {inputValue} - did not match any documents.</p>;
   return (
-    <div>
+    <div className="page-container">
       <div className={styles.header}>
         <div>
           <h1 className={styles.headerText}>
@@ -21,8 +55,14 @@ const Search = () => {
           </p>
         </div>
         <div>
-          <form className={styles.searchForm}>
-            <input placeholder="..." className={styles.search} type="text" />
+          <form className={styles.searchForm} onSubmit={(e) => handleSubmit(e)}>
+            <input
+              className={styles.search}
+              type="text"
+              ref={inputEl}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
             <div className="float-right btns">
               <div className={styles.container}>
                 <Image src={close} alt="close" className={styles.image} />
@@ -30,7 +70,7 @@ const Search = () => {
               <div className={styles.container}>
                 <Image src={filters} alt="filters" className={styles.image} />
               </div>
-              <figure className="btn" type="submit" onClick={getResult}>
+              <figure className="btn" onClick={() => handleSubmit()}>
                 <Image
                   src={search}
                   alt="search-icon"
@@ -42,7 +82,9 @@ const Search = () => {
           </form>
         </div>
       </div>
-      <div>...список...</div>
+      <div className="items">
+        <SearchResults items={items} />
+      </div>
     </div>
   );
 };
