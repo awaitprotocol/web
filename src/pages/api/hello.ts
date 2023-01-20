@@ -82,6 +82,385 @@ export const exRes = {
     },
     {
       document: {
+        desc: "desc1",
+        link: "https://ru.reactjs.org/docs/faq-functions.html",
+        icon: "icon1",
+        title: "Babybug",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc2",
+        link: "https://habr.com/ru/company/timeweb/blog/588498/",
+        icon: "icon2",
+        title: "Babybug2",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title2",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc3",
+        link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
+        icon: "icon3",
+        title: "Babybug3",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title3",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc4",
+        link: "link4",
+        icon: "icon4",
+        title: "Babybug4",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title4",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    }, {
+      document: {
+        desc: "desc1",
+        link: "https://ru.reactjs.org/docs/faq-functions.html",
+        icon: "icon1",
+        title: "Babybug",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc2",
+        link: "https://habr.com/ru/company/timeweb/blog/588498/",
+        icon: "icon2",
+        title: "Babybug2",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title2",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc3",
+        link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
+        icon: "icon3",
+        title: "Babybug3",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title3",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc4",
+        link: "link4",
+        icon: "icon4",
+        title: "Babybug4",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title4",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    }, {
+      document: {
+        desc: "desc1",
+        link: "https://ru.reactjs.org/docs/faq-functions.html",
+        icon: "icon1",
+        title: "Babybug",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc2",
+        link: "https://habr.com/ru/company/timeweb/blog/588498/",
+        icon: "icon2",
+        title: "Babybug2",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title2",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc3",
+        link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
+        icon: "icon3",
+        title: "Babybug3",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title3",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc1",
+        link: "https://ru.reactjs.org/docs/faq-functions.html",
+        icon: "icon1",
+        title: "Babybug",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc2",
+        link: "https://habr.com/ru/company/timeweb/blog/588498/",
+        icon: "icon2",
+        title: "Babybug2",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title2",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc3",
+        link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
+        icon: "icon3",
+        title: "Babybug3",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title3",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    }, {
+      document: {
+        desc: "desc1",
+        link: "https://ru.reactjs.org/docs/faq-functions.html",
+        icon: "icon1",
+        title: "Babybug",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc2",
+        link: "https://habr.com/ru/company/timeweb/blog/588498/",
+        icon: "icon2",
+        title: "Babybug2",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title2",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc3",
+        link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
+        icon: "icon3",
+        title: "Babybug3",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title3",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    }, {
+      document: {
+        desc: "desc1",
+        link: "https://ru.reactjs.org/docs/faq-functions.html",
+        icon: "icon1",
+        title: "Babybug",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc2",
+        link: "https://habr.com/ru/company/timeweb/blog/588498/",
+        icon: "icon2",
+        title: "Babybug2",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title2",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc3",
+        link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
+        icon: "icon3",
+        title: "Babybug3",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title3",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    }, {
+      document: {
+        desc: "desc1",
+        link: "https://ru.reactjs.org/docs/faq-functions.html",
+        icon: "icon1",
+        title: "Babybug",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc2",
+        link: "https://habr.com/ru/company/timeweb/blog/588498/",
+        icon: "icon2",
+        title: "Babybug2",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title2",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc3",
+        link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
+        icon: "icon3",
+        title: "Babybug3",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title3",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc4",
+        link: "link4",
+        icon: "icon4",
+        title: "Babybug4",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title4",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
         desc: "desc5",
         link: "link5",
         icon: "icon5",

@@ -59,7 +59,7 @@ hr {
   gap: 5px;
   position: absolute;
   right: 10px;
-  top: 5px;
+  top: 10px;
 }
 .btn {
   background-color: var(--main-orange);
@@ -101,6 +101,35 @@ figure.btn {
 }
 .spinner {
   margin: 25%;
+}
+.pagination{
+  display: flex;
+  margin: 10%;
+}
+.item-pagination{
+  list-style: none;
+  padding: 10px 15px;
+  background-color:  #c8bdf1e0;
+  cursor: pointer;
+  border:  #633dede0 1px solid;
+  box-shadow:  #4728b5e0 1px;
+  color: #4722cd;
+}
+.item-pagination:first-child{
+  
+  border-radius: 4px 0 0 4px;
+  
+}
+.item-pagination:last-child {
+  border-radius: 0 4px 4px 0px;
+
+}
+.item-pagination:active{
+transform: scale(1.02);
+}
+.active-page{
+  background-color:  #633dede0;
+  color: white;
 }
 @media screen and (max-width: 500px) {
   p {

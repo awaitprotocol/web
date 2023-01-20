@@ -4,17 +4,21 @@ import filters from "../assets/images/filter.png";
 import close from "../assets/images/close.png";
 import search from "../assets/images/icons-search.png";
 import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
-import SearchResults from "@/components/SearchResults";
+import SearchResults from "@/components/search`sComponents/SearchResults";
 import { typeHits, TypeResult } from "./api/types";
 import { exRes } from "./api/hello";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import Pagination from "@/components/search`sComponents/Pagination";
 
+
+const countItemsInPage = 10;
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [items, setItems] = useState<typeHits[]>([]);
+  const [serverItems, setServerItems] = useState<typeHits[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-
+  const [currentPage, setCurrentPage] = useState(1);
   const inputEl = useRef<HTMLInputElement>(null);
   useEffect(() => {
     inputEl.current?.focus();
@@ -37,8 +41,15 @@ const Search = () => {
     } finally {
       setLoading(false);
     }
+    setServerItems(exRes.hits)
+    setLoading(false);
     setItems(exRes.hits); //пример из api/hello.js
   };
+  const countItems = items.length;
+  const lastItemsIndex = currentPage * countItemsInPage;
+  const firstItemsIndex = lastItemsIndex - countItemsInPage;
+  const currentItems = items.slice(firstItemsIndex, lastItemsIndex);
+
   if (error) return <p>Server Error</p>;
   if (!items)
     return <p>Your search - {inputValue} - did not match any documents.</p>;
@@ -83,8 +94,13 @@ const Search = () => {
         </div>
       </div>
       <div className="items">
-        {isLoading ? <LoadingSpinner /> : <SearchResults items={items} />}
-
+        {isLoading ? <LoadingSpinner /> : <SearchResults items={currentItems} />}
+      </div>
+      <div>
+        <Pagination countItemsInPage={countItemsInPage}
+         countItems={countItems}
+         setCurrentPage={setCurrentPage}
+         currentPage={currentPage} />
       </div>
     </div>
   );
