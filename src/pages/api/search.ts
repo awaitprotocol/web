@@ -1,16 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import { TypeResult } from "./types";
 
-type Data = {
-  name: string;
-};
-
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: "John Doe" });
-}
 
 export const exRes = {
   facet_counts: [],
@@ -20,7 +11,7 @@ export const exRes = {
       document: {
         desc: "desc1",
         link: "https://ru.reactjs.org/docs/faq-functions.html",
-        icon: "icon1",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug",
       },
       highlight: {},
@@ -36,7 +27,7 @@ export const exRes = {
       document: {
         desc: "desc2",
         link: "https://habr.com/ru/company/timeweb/blog/588498/",
-        icon: "icon2",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug2",
       },
       highlight: {},
@@ -52,7 +43,7 @@ export const exRes = {
       document: {
         desc: "desc3",
         link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
-        icon: "icon3",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug3",
       },
       highlight: {},
@@ -68,7 +59,7 @@ export const exRes = {
       document: {
         desc: "desc4",
         link: "link4",
-        icon: "icon4",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug4",
       },
       highlight: {},
@@ -84,7 +75,7 @@ export const exRes = {
       document: {
         desc: "desc1",
         link: "https://ru.reactjs.org/docs/faq-functions.html",
-        icon: "icon1",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug",
       },
       highlight: {},
@@ -100,7 +91,7 @@ export const exRes = {
       document: {
         desc: "desc2",
         link: "https://habr.com/ru/company/timeweb/blog/588498/",
-        icon: "icon2",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug2",
       },
       highlight: {},
@@ -116,7 +107,7 @@ export const exRes = {
       document: {
         desc: "desc3",
         link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
-        icon: "icon3",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug3",
       },
       highlight: {},
@@ -132,7 +123,7 @@ export const exRes = {
       document: {
         desc: "desc4",
         link: "link4",
-        icon: "icon4",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug4",
       },
       highlight: {},
@@ -143,11 +134,12 @@ export const exRes = {
             "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
         },
       ],
-    }, {
+    },
+    {
       document: {
         desc: "desc1",
         link: "https://ru.reactjs.org/docs/faq-functions.html",
-        icon: "icon1",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug",
       },
       highlight: {},
@@ -163,7 +155,7 @@ export const exRes = {
       document: {
         desc: "desc2",
         link: "https://habr.com/ru/company/timeweb/blog/588498/",
-        icon: "icon2",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug2",
       },
       highlight: {},
@@ -179,7 +171,7 @@ export const exRes = {
       document: {
         desc: "desc3",
         link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
-        icon: "icon3",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug3",
       },
       highlight: {},
@@ -195,7 +187,7 @@ export const exRes = {
       document: {
         desc: "desc4",
         link: "link4",
-        icon: "icon4",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug4",
       },
       highlight: {},
@@ -206,11 +198,12 @@ export const exRes = {
             "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
         },
       ],
-    }, {
+    },
+    {
       document: {
         desc: "desc1",
         link: "https://ru.reactjs.org/docs/faq-functions.html",
-        icon: "icon1",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug",
       },
       highlight: {},
@@ -226,7 +219,7 @@ export const exRes = {
       document: {
         desc: "desc2",
         link: "https://habr.com/ru/company/timeweb/blog/588498/",
-        icon: "icon2",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug2",
       },
       highlight: {},
@@ -242,7 +235,151 @@ export const exRes = {
       document: {
         desc: "desc3",
         link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
-        icon: "icon3",
+        icon: "https://img.icons8.com/color/48/null/user.png",
+        title: "Babybug3",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title3",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc1",
+        link: "https://ru.reactjs.org/docs/faq-functions.html",
+        icon: "https://img.icons8.com/color/48/null/user.png",
+        title: "Babybug",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc2",
+        link: "https://habr.com/ru/company/timeweb/blog/588498/",
+        icon: "https://img.icons8.com/color/48/null/user.png",
+        title: "Babybug2",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title2",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc3",
+        link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
+        icon: "https://img.icons8.com/color/48/null/user.png",
+        title: "Babybug3",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title3",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc1",
+        link: "https://ru.reactjs.org/docs/faq-functions.html",
+        icon: "https://img.icons8.com/color/48/null/user.png",
+        title: "Babybug",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc2",
+        link: "https://habr.com/ru/company/timeweb/blog/588498/",
+        icon: "https://img.icons8.com/color/48/null/user.png",
+        title: "Babybug2",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title2",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc3",
+        link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
+        icon: "https://img.icons8.com/color/48/null/user.png",
+        title: "Babybug3",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title3",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc1",
+        link: "https://ru.reactjs.org/docs/faq-functions.html",
+        icon: "https://img.icons8.com/color/48/null/user.png",
+        title: "Babybug",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc2",
+        link: "https://habr.com/ru/company/timeweb/blog/588498/",
+        icon: "https://img.icons8.com/color/48/null/user.png",
+        title: "Babybug2",
+      },
+      highlight: {},
+      highlights: [
+        {
+          field: "title2",
+          snippet:
+            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+        },
+      ],
+    },
+    {
+      document: {
+        desc: "desc3",
+        link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug3",
       },
       highlight: {},
@@ -274,148 +411,7 @@ export const exRes = {
       document: {
         desc: "desc2",
         link: "https://habr.com/ru/company/timeweb/blog/588498/",
-        icon: "icon2",
-        title: "Babybug2",
-      },
-      highlight: {},
-      highlights: [
-        {
-          field: "title2",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
-        },
-      ],
-    },
-    {
-      document: {
-        desc: "desc3",
-        link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
-        icon: "icon3",
-        title: "Babybug3",
-      },
-      highlight: {},
-      highlights: [
-        {
-          field: "title3",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
-        },
-      ],
-    }, {
-      document: {
-        desc: "desc1",
-        link: "https://ru.reactjs.org/docs/faq-functions.html",
-        icon: "icon1",
-        title: "Babybug",
-      },
-      highlight: {},
-      highlights: [
-        {
-          field: "title",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
-        },
-      ],
-    },
-    {
-      document: {
-        desc: "desc2",
-        link: "https://habr.com/ru/company/timeweb/blog/588498/",
-        icon: "icon2",
-        title: "Babybug2",
-      },
-      highlight: {},
-      highlights: [
-        {
-          field: "title2",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
-        },
-      ],
-    },
-    {
-      document: {
-        desc: "desc3",
-        link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
-        icon: "icon3",
-        title: "Babybug3",
-      },
-      highlight: {},
-      highlights: [
-        {
-          field: "title3",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
-        },
-      ],
-    }, {
-      document: {
-        desc: "desc1",
-        link: "https://ru.reactjs.org/docs/faq-functions.html",
-        icon: "icon1",
-        title: "Babybug",
-      },
-      highlight: {},
-      highlights: [
-        {
-          field: "title",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
-        },
-      ],
-    },
-    {
-      document: {
-        desc: "desc2",
-        link: "https://habr.com/ru/company/timeweb/blog/588498/",
-        icon: "icon2",
-        title: "Babybug2",
-      },
-      highlight: {},
-      highlights: [
-        {
-          field: "title2",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
-        },
-      ],
-    },
-    {
-      document: {
-        desc: "desc3",
-        link: "https://mobile.twitter.com/olya_baton/status/1540829839204163590",
-        icon: "icon3",
-        title: "Babybug3",
-      },
-      highlight: {},
-      highlights: [
-        {
-          field: "title3",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
-        },
-      ],
-    }, {
-      document: {
-        desc: "desc1",
-        link: "https://ru.reactjs.org/docs/faq-functions.html",
-        icon: "icon1",
-        title: "Babybug",
-      },
-      highlight: {},
-      highlights: [
-        {
-          field: "title",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
-        },
-      ],
-    },
-    {
-      document: {
-        desc: "desc2",
-        link: "https://habr.com/ru/company/timeweb/blog/588498/",
-        icon: "icon2",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug2",
       },
       highlight: {},
@@ -447,7 +443,7 @@ export const exRes = {
       document: {
         desc: "desc4",
         link: "link4",
-        icon: "icon4",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug4",
       },
       highlight: {},
@@ -463,7 +459,7 @@ export const exRes = {
       document: {
         desc: "desc5",
         link: "link5",
-        icon: "icon5",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug5",
       },
       highlight: {},
@@ -479,7 +475,7 @@ export const exRes = {
       document: {
         desc: "desc6",
         link: "link6",
-        icon: "icon6",
+        icon: "https://img.icons8.com/color/48/null/user.png",
         title: "Babybug6",
       },
       highlight: {},
@@ -498,3 +494,11 @@ export const exRes = {
   search_cutoff: false,
   search_time_ms: 1123,
 };
+
+export default function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<TypeResult>
+) {
+  res.status(200).json(exRes)
+   
+}

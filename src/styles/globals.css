@@ -7,11 +7,17 @@
 
   --main-orange: rgb(255, 102, 0);
   --blue: #633dede0;
+  --gray:  rgba(153, 149, 149, 0.922);
+  --light-gray:  rgba(186, 186, 186, 0.377);
 }
 
 @font-face {
   font-family: "Varela Round";
   src: url(../assets/fonts/VarelaRound-Regular.ttf);
+}
+@font-face {
+  font-family: "Lato";
+  src: url(../assets/fonts/Lato-Regular.ttf);
 }
 
 * {
@@ -34,12 +40,17 @@ h3 {
 }
 hr {
   margin: 5px 0;
+  border-color: var(--light-gray);
+}
+nav{
+  padding: 15px;
+  border-bottom:  1px var(--light-gray) solid;
 }
 .fs-14 {
   font-size: 14px;
 }
 .gray-text {
-  color: rgba(152, 152, 152, 0.795);
+  color:  var(--gray);
 }
 .color-orange {
   color: var(--main-orange);
@@ -51,15 +62,16 @@ hr {
   justify-content: center;
 }
 .items {
-  width: 50vw;
+  font-family: "Lato";
+  width: 70vw;
 }
 .btns {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   position: absolute;
   right: 10px;
-  top: 10px;
+  top:8px;
 }
 .btn {
   background-color: var(--main-orange);
@@ -69,22 +81,23 @@ hr {
   outline: none;
   cursor: pointer;
 }
-.btn:active {
+.btn:active, .btn:hover {
   transform: scale(1.05);
-  background-color: rgb(218, 89, 2);
+  background-color: rgb(252, 77, 3);
 }
 figure.btn {
   display: flex;
   gap: 3px;
   align-items: center;
-  font-size: 9px;
+  font-size: 20px;
   padding: 5px 8px;
 }
 .item {
-  margin: 15px;
+  margin: 20px 15px;
 }
 .item-title {
   font-size: 20px;
+  font-weight: 600;
   margin-bottom: 5px;
   cursor: pointer;
   text-decoration: none;
@@ -131,8 +144,30 @@ transform: scale(1.02);
   background-color:  #633dede0;
   color: white;
 }
+.icon{
+  width: 24px;
+  height: 24px;
+}
+.icon-container{
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+
 @media screen and (max-width: 500px) {
   p {
     font-size: 14px;
   }
+  figure.btn {
+    font-size: 12px;
+}
+.items {
+  width: 100%;
+}
+.item{
+  margin: 25px 10px;
+}
+.item-title{
+  font-size: 18px;
+}
 }

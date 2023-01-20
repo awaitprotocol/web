@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import { typeHits } from "@/pages/api/types";
 
 type Props = {
@@ -21,6 +23,13 @@ export default function SearchResults({ items }: Props) {
               <p className="gray-text fs-14">{item.document.desc}</p>
             </div>
             <hr />
+            <div className="icon-container">
+              <img src={item.document.icon} alt="icon" className="icon" />
+              <div>
+                <strong>User name</strong>
+                <span className="gray-text">  lala</span>
+              </div>
+            </div>
           </div>
         );
       })}

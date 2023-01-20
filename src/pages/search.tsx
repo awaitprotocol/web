@@ -6,16 +6,13 @@ import search from "../assets/images/icons-search.png";
 import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import SearchResults from "@/components/search`sComponents/SearchResults";
 import { typeHits, TypeResult } from "./api/types";
-import { exRes } from "./api/hello";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Pagination from "@/components/search`sComponents/Pagination";
-
 
 const countItemsInPage = 10;
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
   const [items, setItems] = useState<typeHits[]>([]);
-  const [serverItems, setServerItems] = useState<typeHits[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,20 +27,15 @@ const Search = () => {
     e?.preventDefault();
     if (!inputValue) return;
     setLoading(true);
-    try {
-      fetch(`.../${inputValue}`)
-        .then((res) => res.json())
-        .then((data: TypeResult) => {
-          setItems(data.hits);
-        });
-    } catch (e) {
+
+    const res = await fetch(`api/search`); // const res = await fetch(`.../${inputValue}`)
+    if (!res.ok) {
       setError(true);
-    } finally {
       setLoading(false);
     }
-    setServerItems(exRes.hits)
+    const data = await res.json();
+    setItems(data.hits);
     setLoading(false);
-    setItems(exRes.hits); //пример из api/hello.js
   };
   const countItems = items.length;
   const lastItemsIndex = currentPage * countItemsInPage;
@@ -51,8 +43,10 @@ const Search = () => {
   const currentItems = items.slice(firstItemsIndex, lastItemsIndex);
 
   if (error) return <p>Server Error</p>;
+
   if (!items)
     return <p>Your search - {inputValue} - did not match any documents.</p>;
+
   return (
     <div className="page-container">
       <div className={styles.header}>
@@ -94,13 +88,19 @@ const Search = () => {
         </div>
       </div>
       <div className="items">
-        {isLoading ? <LoadingSpinner /> : <SearchResults items={currentItems} />}
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <SearchResults items={currentItems} />
+        )}
       </div>
       <div>
-        <Pagination countItemsInPage={countItemsInPage}
-         countItems={countItems}
-         setCurrentPage={setCurrentPage}
-         currentPage={currentPage} />
+        <Pagination
+          countItemsInPage={countItemsInPage}
+          countItems={countItems}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
       </div>
     </div>
   );
