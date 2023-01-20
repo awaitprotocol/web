@@ -3,11 +3,12 @@ import styles from "@/styles/search.module.css";
 import filters from "../assets/images/filter.png";
 import close from "../assets/images/close.png";
 import search from "../assets/images/icons-search.png";
-import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SearchResults from "@/components/search`sComponents/SearchResults";
 import { TypeHits } from "./api/types";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Pagination from "@/components/search`sComponents/Pagination";
+import ServerError from "@/components/ServerError";
 
 const countItemsInPage = 10;
 const Search = () => {
@@ -26,7 +27,7 @@ const Search = () => {
     if (!inputValue) return;
     setLoading(true);
 
-    const res = await fetch(`api/search`); // const res = await fetch(`.../${inputValue}`)
+    const res = await fetch(`api/searc`); // const res = await fetch(`.../${inputValue}`)
     if (!res.ok) {
       setError(true);
       setLoading(false);
@@ -40,7 +41,7 @@ const Search = () => {
   const firstItemsIndex = lastItemsIndex - countItemsInPage;
   const currentItems = items.slice(firstItemsIndex, lastItemsIndex);
 
-  if (error) return <p>Server Error</p>;
+  if (error) return <ServerError/>;
 
   if (!items)
     return <p>Your search - {inputValue} - did not match any documents.</p>;
