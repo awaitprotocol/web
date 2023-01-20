@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
-import { typeHits } from "@/pages/api/types";
+import { TypeHits } from "@/pages/api/types";
 
 type Props = {
-  items: typeHits[];
+  items: TypeHits[];
 };
 export default function SearchResults({ items }: Props) {
   return (

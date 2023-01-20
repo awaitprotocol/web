@@ -5,14 +5,14 @@ import close from "../assets/images/close.png";
 import search from "../assets/images/icons-search.png";
 import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
 import SearchResults from "@/components/search`sComponents/SearchResults";
-import { typeHits, TypeResult } from "./api/types";
+import { TypeHits } from "./api/types";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import Pagination from "@/components/search`sComponents/Pagination";
 
 const countItemsInPage = 10;
 const Search = () => {
   const [inputValue, setInputValue] = useState("");
-  const [items, setItems] = useState<typeHits[]>([]);
+  const [items, setItems] = useState<TypeHits[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,10 +21,8 @@ const Search = () => {
     inputEl.current?.focus();
   }, []);
 
-  const handleSubmit = async (
-    e?: FormEvent<HTMLFormElement> | MouseEvent<HTMLElement, MouseEvent>
-  ) => {
-    e?.preventDefault();
+  const handleSubmit = async (e: React.SyntheticEvent<EventTarget>) => {
+    e.preventDefault();
     if (!inputValue) return;
     setLoading(true);
 
@@ -75,7 +73,7 @@ const Search = () => {
               <div className={styles.container}>
                 <Image src={filters} alt="filters" className={styles.image} />
               </div>
-              <figure className="btn" onClick={() => handleSubmit()}>
+              <figure className="btn" onClick={(e) => handleSubmit(e)}>
                 <Image
                   src={search}
                   alt="search-icon"
