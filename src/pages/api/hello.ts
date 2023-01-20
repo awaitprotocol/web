@@ -1,15 +1,12 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next"
 
 type Data = {
-  name: string;
-};
+  name: string
+}
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  res.status(200).json({ name: "John Doe" });
+export default function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
+  res.status(200).json({ name: "John Doe" })
 }
 
 export const exRes = {
@@ -27,8 +24,7 @@ export const exRes = {
       highlights: [
         {
           field: "title",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+          snippet: "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
         },
       ],
     },
@@ -43,8 +39,7 @@ export const exRes = {
       highlights: [
         {
           field: "title2",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+          snippet: "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
         },
       ],
     },
@@ -59,8 +54,7 @@ export const exRes = {
       highlights: [
         {
           field: "title3",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+          snippet: "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
         },
       ],
     },
@@ -75,8 +69,7 @@ export const exRes = {
       highlights: [
         {
           field: "title4",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+          snippet: "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
         },
       ],
     },
@@ -91,8 +84,7 @@ export const exRes = {
       highlights: [
         {
           field: "title",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+          snippet: "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
         },
       ],
     },
@@ -107,8 +99,7 @@ export const exRes = {
       highlights: [
         {
           field: "title6",
-          snippet:
-            "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
+          snippet: "<mark>Harry</mark> <mark>Potter</mark> and the Philosopher's Stone",
         },
       ],
     },
@@ -118,4 +109,4 @@ export const exRes = {
   request_params: { collection_name: "books_1638578845", per_page: 10, q: "*" },
   search_cutoff: false,
   search_time_ms: 1123,
-};
+}

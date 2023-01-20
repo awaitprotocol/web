@@ -1,47 +1,46 @@
-import Image from "next/image";
-import styles from "@/styles/search.module.css";
-import filters from "../assets/images/filter.png";
-import close from "../assets/images/close.png";
-import search from "../assets/images/icons-search.png";
-import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react";
-import SearchResults from "@/components/SearchResults";
-import { typeHits, TypeResult } from "./api/types";
-import { exRes } from "./api/hello";
-import LoadingSpinner from "@/components/LoadingSpinner";
+import Image from "next/image"
+import styles from "@/styles/search.module.css"
+import filters from "@/assets/images/filter.png"
+import close from "@/assets/images/close.png"
+import search from "@/assets/images/icons-search.png"
+import { FormEvent, MouseEvent, useEffect, useRef, useState } from "react"
+import SearchResults from "@/components/SearchResults"
+import { typeHits, TypeResult } from "@/pages/api/types"
+import { exRes } from "@/pages/api/hello"
+import LoadingSpinner from "@/components/LoadingSpinner"
 
 const Search = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [items, setItems] = useState<typeHits[]>([]);
-  const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [inputValue, setInputValue] = useState("")
+  const [items, setItems] = useState<typeHits[]>([])
+  const [isLoading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
 
-  const inputEl = useRef<HTMLInputElement>(null);
+  const inputEl = useRef<HTMLInputElement>(null)
   useEffect(() => {
-    inputEl.current?.focus();
-  }, []);
+    inputEl.current?.focus()
+  }, [])
 
   const handleSubmit = async (
-    e?: FormEvent<HTMLFormElement> | MouseEvent<HTMLElement, MouseEvent>
+    e?: FormEvent<HTMLFormElement> | MouseEvent<HTMLElement, MouseEvent>,
   ) => {
-    e?.preventDefault();
-    if (!inputValue) return;
-    setLoading(true);
+    e?.preventDefault()
+    if (!inputValue) return
+    setLoading(true)
     try {
       fetch(`.../${inputValue}`)
         .then((res) => res.json())
         .then((data: TypeResult) => {
-          setItems(data.hits);
-        });
+          setItems(data.hits)
+        })
     } catch (e) {
-      setError(true);
+      setError(true)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-    setItems(exRes.hits); //пример из api/hello.js
-  };
-  if (error) return <p>Server Error</p>;
-  if (!items)
-    return <p>Your search - {inputValue} - did not match any documents.</p>;
+    setItems(exRes.hits) //пример из api/hello.js
+  }
+  if (error) return <p>Server Error</p>
+  if (!items) return <p>Your search - {inputValue} - did not match any documents.</p>
   return (
     <div className="page-container">
       <div className={styles.header}>
@@ -71,11 +70,7 @@ const Search = () => {
                 <Image src={filters} alt="filters" className={styles.image} />
               </div>
               <figure className="btn" onClick={() => handleSubmit()}>
-                <Image
-                  src={search}
-                  alt="search-icon"
-                  className={styles.image}
-                />
+                <Image src={search} alt="search-icon" className={styles.image} />
                 <figcaption>Go!</figcaption>
               </figure>
             </div>
@@ -84,9 +79,8 @@ const Search = () => {
       </div>
       <div className="items">
         {isLoading ? <LoadingSpinner /> : <SearchResults items={items} />}
-
       </div>
     </div>
-  );
-};
-export default Search;
+  )
+}
+export default Search

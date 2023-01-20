@@ -1,7 +1,7 @@
-import { typeHits } from "@/pages/api/types";
+import { typeHits } from "@/pages/api/types"
 type Props = {
-  items: typeHits[];
-};
+  items: typeHits[]
+}
 
 export default function SearchResults({ items }: Props) {
   return (
@@ -9,12 +9,7 @@ export default function SearchResults({ items }: Props) {
       {items.map(function (item) {
         return (
           <div key={item.document.title} className="item">
-            <a
-              href={item.document.link}
-              className="item-title"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={item.document.link} className="item-title" target="_blank" rel="noreferrer">
               {item.document.title}
             </a>
             <div>
@@ -22,8 +17,8 @@ export default function SearchResults({ items }: Props) {
             </div>
             <hr />
           </div>
-        );
+        )
       })}
     </>
-  );
+  )
 }
