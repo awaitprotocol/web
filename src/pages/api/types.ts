@@ -8,7 +8,7 @@ export type TypeHits = {
 };
 
 export type TypeResult = {
-    facet_counts: number[]; //?
+    facet_counts: number[]; // ?
     found: number;
     hits: TypeHits[];
     out_of: number;

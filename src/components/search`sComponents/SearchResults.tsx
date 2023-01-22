@@ -31,8 +31,8 @@ export default function SearchResults({ items }: Props) {
               </div>
             </div>
           </div>
-        );
+        )
       })}
     </>
-  );
+  )
 }

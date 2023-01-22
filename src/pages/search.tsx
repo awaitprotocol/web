@@ -19,15 +19,15 @@ const Search = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const inputEl = useRef<HTMLInputElement>(null);
   useEffect(() => {
-    inputEl.current?.focus();
-  }, []);
+    inputEl.current?.focus()
+  }, [])
 
   const handleSubmit = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
     if (!inputValue) return;
     setLoading(true);
 
-    const res = await fetch(`api/searc`); // const res = await fetch(`.../${inputValue}`)
+    const res = await fetch(`api/search`); // const res = await fetch(`.../${inputValue}`)
     if (!res.ok) {
       setError(true);
       setLoading(false);
@@ -102,6 +102,6 @@ const Search = () => {
         />
       </div>
     </div>
-  );
-};
-export default Search;
+  )
+}
+export default Search

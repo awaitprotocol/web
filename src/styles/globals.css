@@ -61,10 +61,6 @@ nav {
   align-items: center;
   justify-content: center;
 }
-.items {
-  font-family: "Lato";
-  width: 70vw;
-}
 .btns {
   display: flex;
   align-items: center;
@@ -93,8 +89,12 @@ figure.btn {
   font-size: 20px;
   padding: 5px 8px;
 }
+.items {
+  font-family: "Lato";
+  width: 70vw;
+}
 .item {
-  margin: 20px 15px;
+  margin: 30px 15px;
 }
 .item-title {
   font-size: 20px;
