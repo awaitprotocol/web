@@ -1,7 +1,6 @@
-import { client, collection, name } from "./config"
 import type { CollectionCreateSchema } from "typesense/lib/Typesense/Collections"
 import { CollectionFieldSchema } from "typesense/lib/Typesense/Collection"
-import { Schema } from "./types"
+import { client, collection, name, Schema } from "../shared/typesense"
 
 type CollectionSchema = CollectionCreateSchema & {
   fields: Array<CollectionFieldSchema & { name: keyof Schema }>

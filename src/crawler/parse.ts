@@ -3,8 +3,7 @@ import readline from "node:readline"
 import { loadEnvConfig } from "@next/env"
 import { ethers } from "ethers"
 import { CheerioAPI, load } from "cheerio"
-import { collection } from "./config"
-import { Schema } from "./types"
+import { collection, Schema } from "../shared/typesense"
 
 loadEnvConfig(process.cwd())
 

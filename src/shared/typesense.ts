@@ -1,5 +1,12 @@
 import Typesense from "typesense"
-import { Schema } from "./types"
+
+export type Schema = {
+  id: string
+  title: string | undefined
+  desc: string | undefined
+  text: string[]
+  date: number
+}
 
 export const client = new Typesense.Client({
   nodes: [
@@ -9,7 +16,7 @@ export const client = new Typesense.Client({
       protocol: "http",
     },
   ],
-  apiKey: "xyz", // default API key
+  apiKey: process.env.TYPESENSE_API_KEY || "xyz",
   connectionTimeoutSeconds: 2,
 })
 
