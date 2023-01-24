@@ -9,23 +9,27 @@ import { Schema } from "./types"
 loadEnvConfig(process.cwd())
 
 async function main() {
-  const { ALCHEMY_API, IPFS_GATEWAY } = process.env
-  const provider = new ethers.providers.AlchemyProvider("homestead", ALCHEMY_API)
   const domains = readline.createInterface({
     input: fs.createReadStream("src/crawler/ens.txt"),
     crlfDelay: Infinity,
   })
 
   for await (const domain of domains) {
-    const resolver = await provider.getResolver(domain)
-    if (!resolver) continue
+    const url = await getUrl(domain)
+    if (!url) continue
 
-    const contentHash = await resolver.getContentHash()
-    if (!contentHash) continue
+    const html = await fetch(url)
+      .then((res) => {
+        if (res.status !== 200) {
+          console.error(res.status, url)
+          return null
+        }
 
-    const [protocol, hash] = contentHash.split("://")
-    const response = await fetch(`${IPFS_GATEWAY}/${protocol}/${hash}`)
-    const html = await response.text()
+        return res.text()
+      })
+      .catch((error) => console.error("fetch error", error))
+
+    if (!html) continue
     const $ = load(html)
 
     const document: Schema = {
@@ -40,9 +44,25 @@ async function main() {
       date: Date.now(),
     }
 
-    const { id, date } = await collection.documents().upsert(document)
-    console.log(id, date)
+    const { date } = await collection.documents().upsert(document)
+    console.log(url, date)
   }
+}
+
+async function getUrl(domain: string): Promise<string | null> {
+  const { ALCHEMY_API, IPFS_GATEWAY, ENS_GATEWAY } = process.env
+  if (ENS_GATEWAY) return `https://${domain}.${ENS_GATEWAY}/`
+
+  const provider = new ethers.providers.AlchemyProvider("homestead", ALCHEMY_API)
+
+  const resolver = await provider.getResolver(domain)
+  if (!resolver) return null
+
+  const contentHash = await resolver.getContentHash()
+  if (!contentHash) return null
+
+  const [protocol, hash] = contentHash.split("://")
+  return `${IPFS_GATEWAY}/${protocol}/${hash}`
 }
 
 function getProperty($: CheerioAPI, field: string): string | undefined {
