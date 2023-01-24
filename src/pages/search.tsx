@@ -1,50 +1,49 @@
-import Image from "next/image";
-import styles from "@/styles/search.module.css";
-import filters from "../assets/images/filter.png";
-import close from "../assets/images/close.png";
-import search from "../assets/images/icons-search.png";
-import { useEffect, useRef, useState } from "react";
-import SearchResults from "@/components/search`sComponents/SearchResults";
-import { TypeHits } from "./api/types";
-import LoadingSpinner from "@/components/LoadingSpinner";
-import Pagination from "@/components/search`sComponents/Pagination";
-import ServerError from "@/components/ServerError";
+import Image from "next/image"
+import styles from "@/styles/search.module.css"
+import filters from "../assets/images/filter.png"
+import close from "../assets/images/close.png"
+import search from "../assets/images/icons-search.png"
+import { useEffect, useRef, useState } from "react"
+import SearchResults from "@/components/search`sComponents/SearchResults"
+import { TypeHits } from "./api/types"
+import LoadingSpinner from "@/components/LoadingSpinner"
+import Pagination from "@/components/search`sComponents/Pagination"
+import ServerError from "@/components/ServerError"
 
-const countItemsInPage = 10;
+const countItemsInPage = 10
 const Search = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [items, setItems] = useState<TypeHits[]>([]);
-  const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const inputEl = useRef<HTMLInputElement>(null);
+  const [inputValue, setInputValue] = useState("")
+  const [items, setItems] = useState<TypeHits[]>([])
+  const [isLoading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const inputEl = useRef<HTMLInputElement>(null)
   useEffect(() => {
     inputEl.current?.focus()
   }, [])
 
   const handleSubmit = async (e: React.SyntheticEvent<EventTarget>) => {
-    e.preventDefault();
-    if (!inputValue) return;
-    setLoading(true);
+    e.preventDefault()
+    if (!inputValue) return
+    setLoading(true)
 
-    const res = await fetch(`api/search`); // const res = await fetch(`.../${inputValue}`)
+    const res = await fetch(`api/search`) // const res = await fetch(`.../${inputValue}`)
     if (!res.ok) {
-      setError(true);
-      setLoading(false);
+      setError(true)
+      setLoading(false)
     }
-    const data = await res.json();
-    setItems(data.hits);
-    setLoading(false);
-  };
-  const countItems = items.length;
-  const lastItemsIndex = currentPage * countItemsInPage;
-  const firstItemsIndex = lastItemsIndex - countItemsInPage;
-  const currentItems = items.slice(firstItemsIndex, lastItemsIndex);
+    const data = await res.json()
+    setItems(data.hits)
+    setLoading(false)
+  }
+  const countItems = items.length
+  const lastItemsIndex = currentPage * countItemsInPage
+  const firstItemsIndex = lastItemsIndex - countItemsInPage
+  const currentItems = items.slice(firstItemsIndex, lastItemsIndex)
 
-  if (error) return <ServerError/>;
+  if (error) return <ServerError />
 
-  if (!items)
-    return <p>Your search - {inputValue} - did not match any documents.</p>;
+  if (!items) return <p>Your search - {inputValue} - did not match any documents.</p>
 
   return (
     <div className="page-container">
@@ -75,11 +74,7 @@ const Search = () => {
                 <Image src={filters} alt="filters" className={styles.image} />
               </div>
               <figure className="btn" onClick={(e) => handleSubmit(e)}>
-                <Image
-                  src={search}
-                  alt="search-icon"
-                  className={styles.image}
-                />
+                <Image src={search} alt="search-icon" className={styles.image} />
                 <figcaption>Go!</figcaption>
               </figure>
             </div>
@@ -87,11 +82,7 @@ const Search = () => {
         </div>
       </div>
       <div className="items">
-        {isLoading ? (
-          <LoadingSpinner />
-        ) : (
-          <SearchResults items={currentItems} />
-        )}
+        {isLoading ? <LoadingSpinner /> : <SearchResults items={currentItems} />}
       </div>
       <div>
         <Pagination

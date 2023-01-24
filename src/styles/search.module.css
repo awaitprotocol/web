@@ -21,7 +21,8 @@
   border-radius: 4px;
   cursor: pointer;
 }
-.container:hover, .container:active {
+.container:hover,
+.container:active {
   transform: scale(1.1);
   background-color: rgba(174, 174, 174, 0.315);
 }
@@ -44,20 +45,18 @@
 }
 
 @media screen and (max-width: 500px) {
-    .search {
-      width: 80vw;
-    }
-    .image {
-      width: 12px;
-      height: 12px;
-    }
-    .search {
-      height: 40px;
-      font-size: 14px;
-    }
-    .headerText {
-      font-size: 50px;
-     
-    }
+  .search {
+    width: 80vw;
   }
-  
+  .image {
+    width: 12px;
+    height: 12px;
+  }
+  .search {
+    height: 40px;
+    font-size: 14px;
+  }
+  .headerText {
+    font-size: 50px;
+  }
+}

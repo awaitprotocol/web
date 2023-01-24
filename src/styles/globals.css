@@ -1,9 +1,9 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono",
+    "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono",
+    "Courier New", monospace;
 
   --main-orange: rgb(255, 102, 0);
   --blue: #633dede0;
@@ -164,6 +164,11 @@ figure.btn {
   align-items: center;
   font-size: 12px;
 }
+@media screen and (min-width: 500px) and (max-width: 900px) {
+  .items {
+    width: 85vw;
+  }
+}
 
 @media screen and (max-width: 500px) {
   p {
@@ -173,7 +178,7 @@ figure.btn {
     font-size: 12px;
   }
   .items {
-    width: 100%;
+    width: 93%;
   }
   .item {
     margin: 25px 10px;

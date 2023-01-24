@@ -19,20 +19,13 @@ export default function Pagination({
   for (let i = 1; i <= pageCount; i++) {
     pageNumbers.push(i);
   }
-  // const paginationClass = classNames('item-pagination', {
-  //     'active-page': i===currentPage,
-  //   });
   return (
     <div>
       <ul className="pagination">
         {pageNumbers.map(function (i) {
           return (
             <li
-              className={
-                i === currentPage
-                  ? "item-pagination active-page"
-                  : "item-pagination"
-              }
+              className={classNames('item-pagination', i === currentPage && 'active-page')}
               key={String(i)}
               onClick={() => setCurrentPage(i)}
             >
