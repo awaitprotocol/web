@@ -1,6 +1,6 @@
 # Await Protocol
 
-Website, search, crawler.
+Website, search, [crawler](src/crawler/README.md).
 
 ## Requirements
 
