@@ -1,11 +1,12 @@
-import classNames from "classnames";
+import classNames from "classnames"
 
 type PropsPagination = {
-  countItemsInPage: number;
-  countItems: number;
-  setCurrentPage: (i: number) => void;
-  currentPage: number;
-};
+  countItemsInPage: number
+  countItems: number
+  // eslint-disable-next-line no-unused-vars
+  setCurrentPage: (i: number) => void
+  currentPage: number
+}
 
 export default function Pagination({
   countItemsInPage,
@@ -13,11 +14,11 @@ export default function Pagination({
   setCurrentPage,
   currentPage,
 }: PropsPagination) {
-  const pageCount = Math.ceil(countItems / countItemsInPage);
-  const pageNumbers: number[] = [];
+  const pageCount = Math.ceil(countItems / countItemsInPage)
+  const pageNumbers: number[] = []
 
   for (let i = 1; i <= pageCount; i++) {
-    pageNumbers.push(i);
+    pageNumbers.push(i)
   }
   return (
     <div>
@@ -25,15 +26,15 @@ export default function Pagination({
         {pageNumbers.map(function (i) {
           return (
             <li
-              className={classNames('item-pagination', i === currentPage && 'active-page')}
+              className={classNames("item-pagination", i === currentPage && "active-page")}
               key={String(i)}
               onClick={() => setCurrentPage(i)}
             >
               {i}
             </li>
-          );
+          )
         })}
       </ul>
     </div>
-  );
+  )
 }

@@ -1,3 +1,10 @@
+/* @import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities"; */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
@@ -38,6 +45,30 @@ h3 {
   font-size: 18px;
   font-weight: 300;
 }
+.mt-20 {
+  margin-top: 20px;
+}
+.mb-8 {
+  margin-bottom: 1rem;
+}
+.select-ens {
+  margin: 20px 0;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.select-input {
+  border: 1px solid #ddddde;
+  border-radius: 4px;
+  outline: none;
+  height: 2.5rem;
+  cursor: pointer;
+}
+.modal-action {
+  justify-content: space-between;
+}
+
 hr {
   margin: 5px 0;
   border-color: var(--light-gray);
@@ -69,7 +100,12 @@ nav {
   right: 10px;
   top: 8px;
 }
+
 .btn {
+  border-radius: 4px !important;
+}
+
+.my-btn {
   background-color: var(--main-orange);
   color: white;
   border-radius: 4px;
@@ -77,12 +113,12 @@ nav {
   outline: none;
   cursor: pointer;
 }
-.btn:active,
-.btn:hover {
+.my-btn:active,
+.my-btn:hover {
   transform: scale(1.05);
   background-color: rgb(252, 77, 3);
 }
-figure.btn {
+figure.my-btn {
   display: flex;
   gap: 3px;
   align-items: center;
@@ -115,6 +151,9 @@ figure.btn {
 }
 .spinner {
   margin: 25%;
+}
+figure {
+  margin: 0 !important;
 }
 .server-error {
   padding: 20px;
@@ -171,7 +210,8 @@ figure.btn {
 }
 
 @media screen and (max-width: 500px) {
-  p {
+  p,
+  .btn {
     font-size: 14px;
   }
   figure.btn {

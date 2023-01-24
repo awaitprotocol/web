@@ -9,6 +9,7 @@ import { TypeHits } from "./api/types"
 import LoadingSpinner from "@/components/LoadingSpinner"
 import Pagination from "@/components/search`sComponents/Pagination"
 import ServerError from "@/components/ServerError"
+import SettingModal from "@/components/search`sComponents/SettingModal"
 
 const countItemsInPage = 10
 const Search = () => {
@@ -18,10 +19,14 @@ const Search = () => {
   const [error, setError] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const inputEl = useRef<HTMLInputElement>(null)
+  const [showSetting, setShowSetting] = useState(false)
+
   useEffect(() => {
     inputEl.current?.focus()
+    localStorage.setItem("ENS", "direct")
   }, [])
 
+  // eslint-disable-next-line no-undef
   const handleSubmit = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault()
     if (!inputValue) return
@@ -71,9 +76,14 @@ const Search = () => {
                 <Image src={close} alt="close" className={styles.image} />
               </div>
               <div className={styles.container}>
-                <Image src={filters} alt="filters" className={styles.image} />
+                <Image
+                  src={filters}
+                  alt="filters"
+                  className={styles.image}
+                  onClick={() => setShowSetting(true)}
+                />
               </div>
-              <figure className="btn" onClick={(e) => handleSubmit(e)}>
+              <figure className="my-btn" onClick={(e) => handleSubmit(e)}>
                 <Image src={search} alt="search-icon" className={styles.image} />
                 <figcaption>Go!</figcaption>
               </figure>
@@ -92,6 +102,7 @@ const Search = () => {
           currentPage={currentPage}
         />
       </div>
+      {<SettingModal showSetting={showSetting} setShowSetting={setShowSetting} />}
     </div>
   )
 }
