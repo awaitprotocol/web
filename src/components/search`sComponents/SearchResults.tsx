@@ -21,12 +21,12 @@ const buildLink = (link: string) => {
 type Props = {
   items: TypeHits[]
 }
-export default function SearchResults({ items }: Props) {
+const SearchResults = ({ items }: Props) => {
   return (
     <>
-      {items.map(function (item) {
+      {items.map(function (item, index) {
         return (
-          <div key={String(items.indexOf(item))} className="item">
+          <div key={String(index)} className="item">
             <a
               href={buildLink(item.document.link)}
               className="item-title"
@@ -52,3 +52,4 @@ export default function SearchResults({ items }: Props) {
     </>
   )
 }
+export default SearchResults

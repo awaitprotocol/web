@@ -8,18 +8,15 @@ type PropsPagination = {
   currentPage: number
 }
 
-export default function Pagination({
+const Pagination = ({
   countItemsInPage,
   countItems,
   setCurrentPage,
   currentPage,
-}: PropsPagination) {
+}: PropsPagination) => {
   const pageCount = Math.ceil(countItems / countItemsInPage)
-  const pageNumbers: number[] = []
+  const pageNumbers: number[] = Array.from({ length: pageCount }, (_, i) => i)
 
-  for (let i = 1; i <= pageCount; i++) {
-    pageNumbers.push(i)
-  }
   return (
     <div>
       <ul className="pagination">
@@ -38,3 +35,4 @@ export default function Pagination({
     </div>
   )
 }
+export default Pagination
