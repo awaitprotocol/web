@@ -1,11 +1,4 @@
-export type typeDocument = {
-  desc: string
-  link: string
-  icon: string
-  title: string
-}
-
-export type typeHits = {
+export type TypeHits = {
   document: { desc: string; link: string; icon: string; title: string }
   highlight: object
   highlights: {
@@ -15,9 +8,9 @@ export type typeHits = {
 }
 
 export type TypeResult = {
-  facet_counts: number[] //?
+  facet_counts: number[] // ?
   found: number
-  hits: typeHits[]
+  hits: TypeHits[]
   out_of: number
   page: number
   request_params: { collection_name: string; per_page: number; q: string }

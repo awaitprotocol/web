@@ -1,17 +1,30 @@
+/* @import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities"; */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono",
+    "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono",
+    "Courier New", monospace;
 
   --main-orange: rgb(255, 102, 0);
   --blue: #633dede0;
+  --gray: rgba(153, 149, 149, 0.922);
+  --light-gray: rgba(186, 186, 186, 0.377);
 }
 
 @font-face {
   font-family: "Varela Round";
   src: url(../assets/fonts/VarelaRound-Regular.ttf);
+}
+@font-face {
+  font-family: "Lato";
+  src: url(../assets/fonts/Lato-Regular.ttf);
 }
 
 * {
@@ -32,14 +45,43 @@ h3 {
   font-size: 18px;
   font-weight: 300;
 }
+.mt-20 {
+  margin-top: 20px;
+}
+.mb-8 {
+  margin-bottom: 1rem;
+}
+.select-ens {
+  margin: 20px 0;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.select-input {
+  border: 1px solid #ddddde;
+  border-radius: 4px;
+  outline: none;
+  height: 2.5rem;
+  cursor: pointer;
+}
+.modal-action {
+  justify-content: space-between;
+}
+
 hr {
   margin: 5px 0;
+  border-color: var(--light-gray);
+}
+nav {
+  padding: 15px;
+  border-bottom: 1px var(--light-gray) solid;
 }
 .fs-14 {
   font-size: 14px;
 }
 .gray-text {
-  color: rgba(152, 152, 152, 0.795);
+  color: var(--gray);
 }
 .color-orange {
   color: var(--main-orange);
@@ -50,18 +92,20 @@ hr {
   align-items: center;
   justify-content: center;
 }
-.items {
-  width: 50vw;
-}
 .btns {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   position: absolute;
   right: 10px;
-  top: 5px;
+  top: 8px;
 }
+
 .btn {
+  border-radius: 4px !important;
+}
+
+.my-btn {
   background-color: var(--main-orange);
   color: white;
   border-radius: 4px;
@@ -69,22 +113,28 @@ hr {
   outline: none;
   cursor: pointer;
 }
-.btn:active {
+.my-btn:active,
+.my-btn:hover {
   transform: scale(1.05);
-  background-color: rgb(218, 89, 2);
+  background-color: rgb(252, 77, 3);
 }
-figure.btn {
+figure.my-btn {
   display: flex;
   gap: 3px;
   align-items: center;
-  font-size: 9px;
+  font-size: 20px;
   padding: 5px 8px;
 }
+.items {
+  font-family: "Lato";
+  width: 70vw;
+}
 .item {
-  margin: 15px;
+  margin: 30px 15px;
 }
 .item-title {
   font-size: 20px;
+  font-weight: 600;
   margin-bottom: 5px;
   cursor: pointer;
   text-decoration: none;
@@ -102,8 +152,78 @@ figure.btn {
 .spinner {
   margin: 25%;
 }
+figure {
+  margin: 0 !important;
+}
+.server-error {
+  padding: 20px;
+  width: 30%;
+  margin: 30px 30%;
+  box-sizing: content-box;
+  border-radius: rgb(200, 4, 4) 1px solid;
+  color: rgb(200, 4, 4);
+  border-radius: 4px;
+  box-shadow: rgba(235, 20, 20, 0.664) 0px 8px 16px;
+}
+.danger {
+  text-align: center;
+}
+.pagination {
+  display: flex;
+  margin: 10%;
+}
+.item-pagination {
+  list-style: none;
+  padding: 10px 15px;
+  background-color: #c8bdf1e0;
+  cursor: pointer;
+  border: #633dede0 1px solid;
+  box-shadow: #4728b5e0 1px;
+  color: #4722cd;
+}
+.item-pagination:first-child {
+  border-radius: 4px 0 0 4px;
+}
+.item-pagination:last-child {
+  border-radius: 0 4px 4px 0px;
+}
+.item-pagination:active {
+  transform: scale(1.02);
+}
+.active-page {
+  background-color: #633dede0;
+  color: white;
+}
+.icon {
+  width: 24px;
+  height: 24px;
+}
+.icon-container {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+@media screen and (min-width: 500px) and (max-width: 900px) {
+  .items {
+    width: 85vw;
+  }
+}
+
 @media screen and (max-width: 500px) {
-  p {
+  p,
+  .btn {
     font-size: 14px;
+  }
+  figure.btn {
+    font-size: 12px;
+  }
+  .items {
+    width: 93%;
+  }
+  .item {
+    margin: 25px 10px;
+  }
+  .item-title {
+    font-size: 18px;
   }
 }
