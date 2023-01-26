@@ -45,11 +45,22 @@ h3 {
   font-size: 18px;
   font-weight: 300;
 }
+mark {
+  font-weight: 600;
+  background-color: #ffffff;
+
+  /* background-color: #d5c4df;
+  padding: 0.1rem 0.2rem;
+  border-radius: 4px; */
+}
 .mt-20 {
   margin-top: 20px;
 }
 .mb-8 {
   margin-bottom: 1rem;
+}
+.ml-10 {
+  margin-left: 10px;
 }
 .select-ens {
   margin: 20px 0;
@@ -202,6 +213,14 @@ figure {
   display: flex;
   align-items: center;
   font-size: 12px;
+}
+.snippets-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.snippets {
+  font-size: 0.9rem;
 }
 @media screen and (min-width: 500px) and (max-width: 900px) {
   .items {
