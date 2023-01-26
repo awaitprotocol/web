@@ -1,6 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-import { ensName } from "@/pages"
-import { HitsType } from "@/pages/api/q"
+import { ensName } from "@/shared/consts"
+import { Schema } from "@/shared/typesense"
+import { SearchResponseHit } from "typesense/lib/Typesense/Documents"
 
 const buildLink = (domain: string) => {
   const valueENS = localStorage.getItem(ensName)
@@ -8,13 +8,13 @@ const buildLink = (domain: string) => {
     return `https://${domain}.link/`
   }
   if (valueENS === "eth.limo") {
-    return `https://${domain}.limo/}`
+    return `https://${domain}.limo/`
   }
   return domain
 }
 
 type Props = {
-  items: HitsType[]
+  items: SearchResponseHit<Schema>[]
 }
 const SearchResults = ({ items }: Props) => {
   return (
@@ -35,7 +35,7 @@ const SearchResults = ({ items }: Props) => {
             </div>
             <hr />
             <div className="snippets-container">
-              {item.highlights[0].snippets.map(function (el: string, i: number) {
+              {item?.highlights![0].snippets?.map(function (el: string, i: number) {
                 return (
                   <div
                     key={String(i)}
@@ -51,14 +51,5 @@ const SearchResults = ({ items }: Props) => {
     </>
   )
 }
-export default SearchResults
 
-{
-  /* <div className="icon-container">
-<img src={item.document.icon} alt="icon" className="icon" />
-<div>
-  <strong>User name</strong>
-  <span className="gray-text"> lala</span>
-</div>
-</div> */
-}
+export default SearchResults

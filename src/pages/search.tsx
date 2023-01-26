@@ -33,7 +33,7 @@ const Search = () => {
     if (!inputValue) return
 
     setLoading(true)
-    const res = await fetch("/api/q?q=vitalik")
+    const res = await fetch(process.env.SEARCH_API!)
     if (!res.ok) {
       setError("Server error")
       setLoading(false)

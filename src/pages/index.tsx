@@ -1,7 +1,5 @@
 import Head from "next/head"
 
-export const ensName = "ENS_gateway"
-
 export default function Home() {
   return (
     <>

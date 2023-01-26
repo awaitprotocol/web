@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { ensName } from "@/pages"
+import { ensName } from "@/shared/consts"
 import React, { useEffect, useState } from "react"
 import { Modal } from "react-daisyui"
 
