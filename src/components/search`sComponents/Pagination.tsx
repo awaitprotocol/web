@@ -1,10 +1,10 @@
 import classNames from "classnames"
+import { Dispatch, SetStateAction } from "react"
 
 type PropsPagination = {
   countItemsInPage: number
   countItems: number
-  // eslint-disable-next-line no-unused-vars
-  setCurrentPage: (i: number) => void
+  setCurrentPage: Dispatch<SetStateAction<number>>
   currentPage: number
 }
 

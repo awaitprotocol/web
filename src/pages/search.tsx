@@ -33,12 +33,14 @@ const Search = () => {
     if (!inputValue) return
 
     setLoading(true)
-    const res = await fetch(process.env.SEARCH_API!)
+
+    const res = await fetch(process.env.NEXT_PUBLIC_SEARCH_API!)
     if (!res.ok) {
       setError("Server error")
       setLoading(false)
       return
     }
+
     const data: Res = await res.json()
     if (data.success) {
       setItems(data.result.hits as SearchResponseHit<Schema>[])
@@ -95,6 +97,7 @@ const Search = () => {
                 <figcaption>Go!</figcaption>
               </figure>
             </div>
+            {/* <span className="ens-value">{valueENS !== "direct" && valueENS}</span> */}
           </form>
         </div>
       </div>

@@ -1,4 +1,4 @@
-export default function Nav() {
+const Nav = () => {
   return (
     <nav>
       <h2>
@@ -7,3 +7,4 @@ export default function Nav() {
     </nav>
   )
 }
+export default Nav

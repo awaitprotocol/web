@@ -42,7 +42,6 @@ export default function SettingModal({ showSetting, setShowSetting }: Props) {
           <div className="btn" onClick={() => setShowSetting(false)}>
             Close
           </div>
-
           <div className="btn my-btn" onClick={() => handleSubmit()}>
             Save Changes
           </div>

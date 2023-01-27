@@ -109,11 +109,17 @@ nav {
   gap: 10px;
   position: absolute;
   right: 10px;
-  top: 8px;
+  top: 5px;
 }
 
 .btn {
   border-radius: 4px !important;
+}
+.ens-value {
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: -25px;
+  right: 10px;
 }
 
 .my-btn {
@@ -230,10 +236,10 @@ figure {
 
 @media screen and (max-width: 500px) {
   p,
-  .btn {
+  .my-btn {
     font-size: 14px;
   }
-  figure.btn {
+  figure.my-btn {
     font-size: 12px;
   }
   .items {
