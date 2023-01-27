@@ -3,42 +3,51 @@ import styles from "@/styles/search.module.css"
 import filters from "../assets/images/filter.png"
 import close from "../assets/images/close.png"
 import search from "../assets/images/icons-search.png"
-import { useEffect, useRef, useState } from "react"
+import { SyntheticEvent, useEffect, useRef, useState } from "react"
 import SearchResults from "@/components/search`sComponents/SearchResults"
-import { TypeHits } from "./api/types"
 import LoadingSpinner from "@/components/LoadingSpinner"
 import Pagination from "@/components/search`sComponents/Pagination"
-import ServerError from "@/components/ServerError"
+import ErrorWindow from "@/components/ErrorWindow"
 import SettingModal from "@/components/search`sComponents/SettingModal"
+import { Res } from "./api/q"
+import { SearchResponseHit } from "typesense/lib/Typesense/Documents"
+import { Schema } from "@/shared/typesense"
 
 const countItemsInPage = 10
 const Search = () => {
   const [inputValue, setInputValue] = useState("")
-  const [items, setItems] = useState<TypeHits[]>([])
+  const [items, setItems] = useState<SearchResponseHit<Schema>[]>([])
   const [isLoading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
   const inputEl = useRef<HTMLInputElement>(null)
   const [showSetting, setShowSetting] = useState(false)
 
   useEffect(() => {
     inputEl.current?.focus()
-    localStorage.setItem("ENS", "direct")
   }, [])
 
-  // eslint-disable-next-line no-undef
-  const handleSubmit = async (e: React.SyntheticEvent<EventTarget>) => {
+  const handleSubmit = async (e: SyntheticEvent<EventTarget>) => {
     e.preventDefault()
+
     if (!inputValue) return
+
     setLoading(true)
 
-    const res = await fetch(`api/search`) // const res = await fetch(`.../${inputValue}`)
+    const res = await fetch(process.env.NEXT_PUBLIC_SEARCH_API!)
     if (!res.ok) {
-      setError(true)
+      setError("Server error")
       setLoading(false)
+      return
     }
-    const data = await res.json()
-    setItems(data.hits)
+
+    const data: Res = await res.json()
+    if (data.success) {
+      setItems(data.result.hits as SearchResponseHit<Schema>[])
+      setLoading(false)
+      return
+    }
+    setError("Error")
     setLoading(false)
   }
   const countItems = items.length
@@ -46,7 +55,7 @@ const Search = () => {
   const firstItemsIndex = lastItemsIndex - countItemsInPage
   const currentItems = items.slice(firstItemsIndex, lastItemsIndex)
 
-  if (error) return <ServerError />
+  if (error) return <ErrorWindow error={error} />
 
   if (!items) return <p>Your search - {inputValue} - did not match any documents.</p>
 
@@ -88,6 +97,7 @@ const Search = () => {
                 <figcaption>Go!</figcaption>
               </figure>
             </div>
+            {/* <span className="ens-value">{valueENS !== "direct" && valueENS}</span> */}
           </form>
         </div>
       </div>

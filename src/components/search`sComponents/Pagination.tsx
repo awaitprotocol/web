@@ -1,10 +1,10 @@
 import classNames from "classnames"
+import { Dispatch, SetStateAction } from "react"
 
 type PropsPagination = {
   countItemsInPage: number
   countItems: number
-  // eslint-disable-next-line no-unused-vars
-  setCurrentPage: (i: number) => void
+  setCurrentPage: Dispatch<SetStateAction<number>>
   currentPage: number
 }
 
@@ -18,21 +18,25 @@ const Pagination = ({
   const pageNumbers: number[] = Array.from({ length: pageCount }, (_, i) => i)
 
   return (
-    <div>
-      <ul className="pagination">
-        {pageNumbers.map(function (i) {
-          return (
-            <li
-              className={classNames("item-pagination", i === currentPage && "active-page")}
-              key={String(i)}
-              onClick={() => setCurrentPage(i)}
-            >
-              {i}
-            </li>
-          )
-        })}
-      </ul>
-    </div>
+    <>
+      {pageNumbers.length > 1 && (
+        <div>
+          <ul className="pagination">
+            {pageNumbers.map(function (i) {
+              return (
+                <li
+                  className={classNames("item-pagination", i === currentPage && "active-page")}
+                  key={String(i)}
+                  onClick={() => setCurrentPage(i)}
+                >
+                  {i}
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      )}
+    </>
   )
 }
 export default Pagination

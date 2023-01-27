@@ -1,6 +1,6 @@
 import { BallTriangle } from "react-loader-spinner"
 
-export default function LoadingSpinner() {
+const LoadingSpinner = () => {
   return (
     <div className="spinner">
       <BallTriangle
@@ -14,3 +14,4 @@ export default function LoadingSpinner() {
     </div>
   )
 }
+export default LoadingSpinner

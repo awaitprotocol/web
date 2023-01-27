@@ -1,25 +1,20 @@
-/* eslint-disable @next/next/no-img-element */
-import { TypeHits } from "@/pages/api/types"
+import { ensName } from "@/shared/consts"
+import { Schema } from "@/shared/typesense"
+import { SearchResponseHit } from "typesense/lib/Typesense/Documents"
 
-const buildURL = (link: string) => {
-  const url = new URL(link)
-  return url.protocol === "https:" ? url : `https://${url.host}/${url.pathname}`
-}
-
-const buildLink = (link: string) => {
-  const url = buildURL(link)
-  const valueENS = localStorage.getItem("ENS")
+const buildLink = (domain: string) => {
+  const valueENS = localStorage.getItem(ensName)
   if (valueENS === "eth.link") {
-    return `${url}.link/`
+    return `https://${domain}.link/`
   }
   if (valueENS === "eth.limo") {
-    return `{${url}.limo/}`
+    return `https://${domain}.limo/`
   }
-  return link
+  return domain
 }
 
 type Props = {
-  items: TypeHits[]
+  items: SearchResponseHit<Schema>[]
 }
 const SearchResults = ({ items }: Props) => {
   return (
@@ -28,7 +23,7 @@ const SearchResults = ({ items }: Props) => {
         return (
           <div key={String(index)} className="item">
             <a
-              href={buildLink(item.document.link)}
+              href={buildLink(item.document.id)}
               className="item-title"
               target="_blank"
               rel="noreferrer"
@@ -39,12 +34,16 @@ const SearchResults = ({ items }: Props) => {
               <p className="gray-text fs-14">{item.document.desc}</p>
             </div>
             <hr />
-            <div className="icon-container">
-              <img src={item.document.icon} alt="icon" className="icon" />
-              <div>
-                <strong>User name</strong>
-                <span className="gray-text"> lala</span>
-              </div>
+            <div className="snippets-container">
+              {item?.highlights![0].snippets?.map(function (el: string, i: number) {
+                return (
+                  <div
+                    key={String(i)}
+                    className="ml-10 snippets"
+                    dangerouslySetInnerHTML={{ __html: el }}
+                  />
+                )
+              })}
             </div>
           </div>
         )
@@ -52,4 +51,5 @@ const SearchResults = ({ items }: Props) => {
     </>
   )
 }
+
 export default SearchResults
