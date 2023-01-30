@@ -8,7 +8,7 @@ type PropsPagination = {
   currentPage: number
 }
 
-const Pagination = ({
+export const Pagination = ({
   countItemsInPage,
   countItems,
   setCurrentPage,
@@ -22,7 +22,7 @@ const Pagination = ({
       {pageNumbers.length > 1 && (
         <div>
           <ul className="pagination">
-            {pageNumbers.map(function (i) {
+            {pageNumbers.map((i) => {
               return (
                 <li
                   className={classNames("item-pagination", i === currentPage && "active-page")}
@@ -39,4 +39,3 @@ const Pagination = ({
     </>
   )
 }
-export default Pagination

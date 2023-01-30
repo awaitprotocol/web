@@ -1,14 +1,13 @@
-/* eslint-disable no-unused-vars */
 import { ensName } from "@/shared/consts"
-import React, { useEffect, useState } from "react"
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { Modal } from "react-daisyui"
 
 type Props = {
   showSetting: boolean
-  setShowSetting: (value: boolean) => void
+  setShowSetting: Dispatch<SetStateAction<boolean>>
 }
 
-export default function SettingModal({ showSetting, setShowSetting }: Props) {
+export const SettingModal = ({ showSetting, setShowSetting }: Props) => {
   const [formValue, setFormValue] = useState("direct")
 
   useEffect(() => {

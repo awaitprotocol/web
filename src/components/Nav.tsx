@@ -1,4 +1,4 @@
-const Nav = () => {
+export const Nav = () => {
   return (
     <nav>
       <h2>
@@ -7,4 +7,3 @@ const Nav = () => {
     </nav>
   )
 }
-export default Nav

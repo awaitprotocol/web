@@ -1,15 +1,12 @@
 import Image from "next/image"
 import styles from "@/styles/search.module.css"
-import filters from "../assets/images/filter.png"
-import close from "../assets/images/close.png"
-import search from "../assets/images/icons-search.png"
+import filters from "@/assets/images/filter.png"
+import close from "@/assets/images/close.png"
+import search from "@/assets/images/icons-search.png"
 import { SyntheticEvent, useEffect, useRef, useState } from "react"
-import SearchResults from "@/components/search`sComponents/SearchResults"
-import LoadingSpinner from "@/components/LoadingSpinner"
-import Pagination from "@/components/search`sComponents/Pagination"
-import ErrorWindow from "@/components/ErrorWindow"
-import SettingModal from "@/components/search`sComponents/SettingModal"
-import { Res } from "./api/q"
+import { SearchResults, Pagination, SettingModal } from "@/components/search"
+import { LoadingSpinner, ErrorWindow } from "@/components"
+import { Res } from "@/pages/api/search"
 import { SearchResponseHit } from "typesense/lib/Typesense/Documents"
 import { Schema } from "@/shared/typesense"
 
@@ -34,16 +31,16 @@ const Search = () => {
 
     setLoading(true)
 
-    const res = await fetch(process.env.NEXT_PUBLIC_SEARCH_API!)
+    const res = await fetch("api/search?q=" + inputValue)
     if (!res.ok) {
-      setError("Server error")
+      setError("Server error") // TODO: just show modal
       setLoading(false)
       return
     }
 
     const data: Res = await res.json()
     if (data.success) {
-      setItems(data.result.hits as SearchResponseHit<Schema>[])
+      setItems(data.result.hits || []) // TODO: check it
       setLoading(false)
       return
     }
@@ -68,7 +65,7 @@ const Search = () => {
           </h1>
           <p className={styles.text}>
             <span className="gray-text">Searching for information on</span>
-            <strong> Bodybuilding</strong>
+            <strong> Web3</strong>
           </p>
         </div>
         <div>
@@ -97,7 +94,6 @@ const Search = () => {
                 <figcaption>Go!</figcaption>
               </figure>
             </div>
-            {/* <span className="ens-value">{valueENS !== "direct" && valueENS}</span> */}
           </form>
         </div>
       </div>
@@ -116,4 +112,5 @@ const Search = () => {
     </div>
   )
 }
+
 export default Search

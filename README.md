@@ -9,7 +9,14 @@ Website, search, [crawler](src/crawler/README.md).
 
 ## Dev
 
-First, run the development server:
+First, set `.env.local` file. Example:
+
+```sh
+SEARCH_API_HOST=167.72.41.5
+SEARCH_API_KEY=3YE6uUg
+```
+
+Run the development server:
 
 ```sh
 npm ci

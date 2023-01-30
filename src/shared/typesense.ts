@@ -11,12 +11,12 @@ export type Schema = {
 export const client = new Typesense.Client({
   nodes: [
     {
-      host: "167.71.42.6",
+      host: process.env.SEARCH_API_HOST || "127.0.0.1",
       port: 8108,
       protocol: "http",
     },
   ],
-  apiKey: process.env.NEXT_PUBLIC_TYPESENSE_API_KEY || "xyz",
+  apiKey: process.env.SEARCH_API_KEY || "xyz",
   connectionTimeoutSeconds: 2,
 })
 

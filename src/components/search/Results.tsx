@@ -10,18 +10,21 @@ const buildLink = (domain: string) => {
   if (valueENS === "eth.limo") {
     return `https://${domain}.limo/`
   }
-  return domain
+  return `https://${domain}/`
 }
 
 type Props = {
   items: SearchResponseHit<Schema>[]
 }
-const SearchResults = ({ items }: Props) => {
+
+export const SearchResults = ({ items }: Props) => {
   return (
     <>
-      {items.map(function (item, index) {
+      {items.map((item) => {
+        const snippet = item.highlights?.[0].snippets?.[0] || item.document.desc || ""
+
         return (
-          <div key={String(index)} className="item">
+          <div key={item.document.id} className="item">
             <a
               href={buildLink(item.document.id)}
               className="item-title"
@@ -35,15 +38,7 @@ const SearchResults = ({ items }: Props) => {
             </div>
             <hr />
             <div className="snippets-container">
-              {item?.highlights![0].snippets?.map(function (el: string, i: number) {
-                return (
-                  <div
-                    key={String(i)}
-                    className="ml-10 snippets"
-                    dangerouslySetInnerHTML={{ __html: el }}
-                  />
-                )
-              })}
+              <div className="ml-10 snippets" dangerouslySetInnerHTML={{ __html: snippet }} />
             </div>
           </div>
         )
@@ -51,5 +46,3 @@ const SearchResults = ({ items }: Props) => {
     </>
   )
 }
-
-export default SearchResults
