@@ -18,7 +18,11 @@ const schema: CollectionSchema = {
 }
 
 async function dropAndCreateSchema() {
-  await collection.delete()
+  try {
+    await collection.delete()
+  } catch (error) {
+    console.error("collection.delete", error)
+  }
 
   const { name, created_at } = await client.collections().create(schema)
   console.log("done", name, created_at)

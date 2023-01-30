@@ -31,6 +31,11 @@ async function main() {
     if (!html) continue
     const $ = load(html)
 
+    if ($("title").text().endsWith(" Nimi")) {
+      console.error("nimi", url)
+      continue
+    }
+
     const document: Schema = {
       id: domain,
       title: getProperty($, "title"),

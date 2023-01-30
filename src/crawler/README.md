@@ -25,6 +25,7 @@ npx ts-node src/crawler/schema.ts
 ```
 IPFS_GATEWAY=https://<CUSTOM-SUBDOMAIN>.infura-ipfs.io
 ALCHEMY_API=key
+ENS_GATEWAY=link
 ```
 
 5. Start the crawler:
