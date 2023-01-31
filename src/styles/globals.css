@@ -58,19 +58,13 @@ mark {
 .ml-10 {
   margin-left: 10px;
 }
-.select-ens {
-  margin: 20px 0;
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  justify-content: center;
-}
 .select-input {
   border: 1px solid #ddddde;
   border-radius: 4px;
   outline: none;
   height: 2.5rem;
   cursor: pointer;
+  padding-left: 7px;
 }
 .modal-action {
   justify-content: space-between;
@@ -79,6 +73,15 @@ mark {
 hr {
   margin: 5px 0;
   border-color: var(--light-gray);
+}
+.text-center {
+  text-align: center;
+}
+.no-result {
+  padding: 5px;
+  margin: 30px auto;
+  border-radius: 4px;
+  background-color: rgba(224, 221, 221, 0.744);
 }
 nav {
   padding: 15px;
@@ -163,7 +166,7 @@ figure.my-btn {
   justify-content: center;
 }
 .spinner {
-  margin: 25%;
+  margin: 30px 25% 0;
 }
 figure {
   margin: 0 !important;
@@ -224,14 +227,25 @@ figure {
 .snippets {
   font-size: 0.9rem;
 }
+.alert {
+  margin-top: 30px;
+  width: 30%;
+  flex-direction: column;
+  border-radius: 4px;
+  color: rgba(48, 47, 47, 0.991);
+}
 @media screen and (min-width: 500px) and (max-width: 900px) {
   .items {
     width: 85vw;
+  }
+  .alert {
+    width: 35%;
   }
 }
 
 @media screen and (max-width: 500px) {
   p,
+  span,
   .my-btn {
     font-size: 14px;
   }
@@ -246,5 +260,8 @@ figure {
   }
   .item-title {
     font-size: 18px;
+  }
+  .alert {
+    width: 50%;
   }
 }

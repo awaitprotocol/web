@@ -4,6 +4,7 @@ import { SearchResponseHit } from "typesense/lib/Typesense/Documents"
 
 const buildLink = (domain: string) => {
   const valueENS = localStorage.getItem(ensName)
+
   if (valueENS === "eth.link") {
     return `https://${domain}.link/`
   }
@@ -15,9 +16,20 @@ const buildLink = (domain: string) => {
 
 type Props = {
   items: SearchResponseHit<Schema>[]
+  inputValue: string
+  firstSearch: boolean
+  error: string
 }
 
-export const SearchResults = ({ items }: Props) => {
+export const SearchResults = ({ items, inputValue, firstSearch, error }: Props) => {
+
+  if (firstSearch && !items.length && !error)
+    return (
+      <p className="text-center no-result">
+        Your search - {inputValue} - did not match any documents.
+      </p>
+    )
+
   return (
     <>
       {items.map((item) => {
