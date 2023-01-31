@@ -14,6 +14,7 @@ const countItemsInPage = 10
 const Search = () => {
   const [inputValue, setInputValue] = useState("")
   const [items, setItems] = useState<SearchResponseHit<Schema>[]>([])
+  const [firstSearch, setFirstSearch] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
@@ -30,18 +31,19 @@ const Search = () => {
     if (!inputValue) return
 
     setLoading(true)
-
     const res = await fetch("api/search?q=" + inputValue)
+    setFirstSearch(true)
     if (!res.ok) {
-      setError("Server error") // TODO: just show modal
+      setError("Server error")
       setLoading(false)
       return
     }
 
     const data: Res = await res.json()
     if (data.success) {
-      setItems(data.result.hits || []) // TODO: check it
+      setItems(data.result.hits || [])
       setLoading(false)
+      setError("")
       return
     }
     setError("Error")
@@ -52,9 +54,10 @@ const Search = () => {
   const firstItemsIndex = lastItemsIndex - countItemsInPage
   const currentItems = items.slice(firstItemsIndex, lastItemsIndex)
 
-  if (error) return <ErrorWindow error={error} />
-
-  if (!items) return <p>Your search - {inputValue} - did not match any documents.</p>
+  const cleanInput = () => {
+    setInputValue("")
+    inputEl.current?.focus()
+  }
 
   return (
     <div className="page-container">
@@ -79,7 +82,12 @@ const Search = () => {
             />
             <div className="float-right btns">
               <div className={styles.container}>
-                <Image src={close} alt="close" className={styles.image} />
+                <Image
+                  src={close}
+                  alt="close"
+                  className={styles.image}
+                  onClick={() => cleanInput()}
+                />
               </div>
               <div className={styles.container}>
                 <Image
@@ -98,8 +106,18 @@ const Search = () => {
         </div>
       </div>
       <div className="items">
-        {isLoading ? <LoadingSpinner /> : <SearchResults items={currentItems} />}
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <SearchResults
+            items={currentItems}
+            inputValue={inputValue}
+            firstSearch={firstSearch}
+            error={error}
+          />
+        )}
       </div>
+      {error && !isLoading && <ErrorWindow error={error} />}
       <div>
         <Pagination
           countItemsInPage={countItemsInPage}
