@@ -16,45 +16,45 @@ const buildLink = (domain: string) => {
 
 type Props = {
   items: SearchResponseHit<Schema>[]
-  inputValue: string
+  searchValue: string
   firstSearch: boolean
   error: string
 }
 
-export const SearchResults = ({ items, inputValue, firstSearch, error }: Props) => {
-
+export const SearchResults = ({ items, searchValue, firstSearch, error }: Props) => {
   if (firstSearch && !items.length && !error)
     return (
       <p className="text-center no-result">
-        Your search - {inputValue} - did not match any documents.
+        Your search - {searchValue} - did not match any documents.
       </p>
     )
 
   return (
     <>
-      {items.map((item) => {
-        const snippet = item.highlights?.[0].snippets?.[0] || item.document.desc || ""
+      {!error &&
+        items.map((item) => {
+          const snippet = item.highlights?.[0].snippets?.[0] || item.document.desc || ""
 
-        return (
-          <div key={item.document.id} className="item">
-            <a
-              href={buildLink(item.document.id)}
-              className="item-title"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {item.document.title}
-            </a>
-            <div>
-              <p className="gray-text fs-14">{item.document.desc}</p>
+          return (
+            <div key={item.document.id} className="item">
+              <a
+                href={buildLink(item.document.id)}
+                className="item-title"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {item.document.title}
+              </a>
+              <div>
+                <p className="gray-text fs-14">{item.document.desc}</p>
+              </div>
+              <hr />
+              <div className="snippets-container">
+                <div className="ml-10 snippets" dangerouslySetInnerHTML={{ __html: snippet }} />
+              </div>
             </div>
-            <hr />
-            <div className="snippets-container">
-              <div className="ml-10 snippets" dangerouslySetInnerHTML={{ __html: snippet }} />
-            </div>
-          </div>
-        )
-      })}
+          )
+        })}
     </>
   )
 }

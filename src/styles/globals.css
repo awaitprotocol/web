@@ -58,6 +58,13 @@ mark {
 .ml-10 {
   margin-left: 10px;
 }
+.select-ens {
+  margin: 20px 0;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
 .select-input {
   border: 1px solid #ddddde;
   border-radius: 4px;
@@ -73,15 +80,6 @@ mark {
 hr {
   margin: 5px 0;
   border-color: var(--light-gray);
-}
-.text-center {
-  text-align: center;
-}
-.no-result {
-  padding: 5px;
-  margin: 30px auto;
-  border-radius: 4px;
-  background-color: rgba(224, 221, 221, 0.744);
 }
 nav {
   padding: 15px;
@@ -232,7 +230,16 @@ figure {
   width: 30%;
   flex-direction: column;
   border-radius: 4px;
-  color: rgba(48, 47, 47, 0.991);
+}
+.text-center {
+  text-align: center;
+}
+.no-result {
+  padding: 5px;
+  margin: 30px auto;
+  width: 70%;
+  border-radius: 4px;
+  background-color: rgba(224, 221, 221, 0.744);
 }
 @media screen and (min-width: 500px) and (max-width: 900px) {
   .items {

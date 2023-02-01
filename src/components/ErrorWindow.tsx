@@ -1,5 +1,5 @@
 import Image from "next/image"
-import image from "@/assets/images/error.png"
+import image from "@/assets/images/error.svg"
 
 type Props = {
   error: string

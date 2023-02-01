@@ -1,18 +1,20 @@
 import Image from "next/image"
 import styles from "@/styles/search.module.css"
-import filters from "@/assets/images/filter.png"
-import close from "@/assets/images/close.png"
-import search from "@/assets/images/icons-search.png"
+import filters from "@/assets/images/filter.svg"
+import close from "@/assets/images/close.svg"
+import search from "@/assets/images/icons-search.svg"
 import { SyntheticEvent, useEffect, useRef, useState } from "react"
 import { SearchResults, Pagination, SettingModal } from "@/components/search"
 import { LoadingSpinner, ErrorWindow } from "@/components"
 import { Res } from "@/pages/api/search"
 import { SearchResponseHit } from "typesense/lib/Typesense/Documents"
 import { Schema } from "@/shared/typesense"
+import { useRouter } from "next/router"
 
 const countItemsInPage = 10
 const Search = () => {
   const [inputValue, setInputValue] = useState("")
+  const [searchValue, setSearchValue] = useState("")
   const [items, setItems] = useState<SearchResponseHit<Schema>[]>([])
   const [firstSearch, setFirstSearch] = useState(false)
   const [isLoading, setLoading] = useState(false)
@@ -20,6 +22,7 @@ const Search = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const inputEl = useRef<HTMLInputElement>(null)
   const [showSetting, setShowSetting] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     inputEl.current?.focus()
@@ -29,7 +32,8 @@ const Search = () => {
     e.preventDefault()
 
     if (!inputValue) return
-
+    router.push("/search?=" + inputValue)
+    setSearchValue(inputValue)
     setLoading(true)
     const res = await fetch("api/search?q=" + inputValue)
     setFirstSearch(true)
@@ -40,14 +44,15 @@ const Search = () => {
     }
 
     const data: Res = await res.json()
+    console.log(data)
     if (data.success) {
       setItems(data.result.hits || [])
       setLoading(false)
       setError("")
-      return
+    } else {
+      setError("Error")
+      setLoading(false)
     }
-    setError("Error")
-    setLoading(false)
   }
   const countItems = items.length
   const lastItemsIndex = currentPage * countItemsInPage
@@ -57,8 +62,8 @@ const Search = () => {
   const cleanInput = () => {
     setInputValue("")
     inputEl.current?.focus()
+    setFirstSearch(false)
   }
-
   return (
     <div className="page-container">
       <div className={styles.header}>
@@ -81,21 +86,11 @@ const Search = () => {
               onChange={(e) => setInputValue(e.target.value)}
             />
             <div className="float-right btns">
-              <div className={styles.container}>
-                <Image
-                  src={close}
-                  alt="close"
-                  className={styles.image}
-                  onClick={() => cleanInput()}
-                />
+              <div className={styles.container} onClick={() => cleanInput()}>
+                <Image src={close} alt="close" className={styles.image} />
               </div>
-              <div className={styles.container}>
-                <Image
-                  src={filters}
-                  alt="filters"
-                  className={styles.image}
-                  onClick={() => setShowSetting(true)}
-                />
+              <div className={styles.container} onClick={() => setShowSetting(true)}>
+                <Image src={filters} alt="filters" className={styles.image} />
               </div>
               <figure className="my-btn" onClick={(e) => handleSubmit(e)}>
                 <Image src={search} alt="search-icon" className={styles.image} />
@@ -111,7 +106,7 @@ const Search = () => {
         ) : (
           <SearchResults
             items={currentItems}
-            inputValue={inputValue}
+            searchValue={searchValue}
             firstSearch={firstSearch}
             error={error}
           />
