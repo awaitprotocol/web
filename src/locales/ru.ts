@@ -3,6 +3,6 @@ export const ru = {
   search: "Найти",
   close: "Закрыть",
   saveChanges: "Сохранить изменения",
-  сhooseENS: "Выберете ENS",
+  chooseENS: "Выберете ENS",
   gateway: "шлюз",
 }

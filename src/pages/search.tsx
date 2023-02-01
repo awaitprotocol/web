@@ -13,6 +13,7 @@ import { useRouter } from "next/router"
 
 const countItemsInPage = 10
 const Search = ({ messages }: any) => {
+  const [startValue, setStartValue] = useState("")
   const [inputValue, setInputValue] = useState("")
   const [searchValue, setSearchValue] = useState("")
   const [items, setItems] = useState<SearchResponseHit<Schema>[]>([])
@@ -23,16 +24,15 @@ const Search = ({ messages }: any) => {
   const inputEl = useRef<HTMLInputElement>(null)
   const [showSetting, setShowSetting] = useState(false)
   const router = useRouter()
+  const getPath = () => router.asPath.split("?q=")[1]
+  const path = getPath()
 
-  useEffect(() => {
-    inputEl.current?.focus()
-  }, [])
-
-  const handleSubmit = async (e: SyntheticEvent<EventTarget>) => {
-    e.preventDefault()
-
+  const handleSubmit = async (e?: SyntheticEvent<EventTarget>) => {
+    e?.preventDefault()
     if (!inputValue) return
-    router.push("/search?=" + inputValue)
+    if (path !== inputValue) {
+      router.push("/search?q=" + inputValue)
+    }
     setSearchValue(inputValue)
     setLoading(true)
     const res = await fetch("api/search?q=" + inputValue)
@@ -42,9 +42,7 @@ const Search = ({ messages }: any) => {
       setLoading(false)
       return
     }
-
     const data: Res = await res.json()
-    console.log(data)
     if (data.success) {
       setItems(data.result.hits || [])
       setLoading(false)
@@ -54,6 +52,18 @@ const Search = ({ messages }: any) => {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    if (path) {
+      setSearchValue(path)
+      setInputValue(path)
+      setStartValue(path)
+      handleSubmit()
+      return
+    }
+    inputEl.current?.focus()
+  }, [path, startValue])
+
   const countItems = items.length
   const lastItemsIndex = currentPage * countItemsInPage
   const firstItemsIndex = lastItemsIndex - countItemsInPage
@@ -64,6 +74,7 @@ const Search = ({ messages }: any) => {
     inputEl.current?.focus()
     setFirstSearch(false)
   }
+
   return (
     <div className="page-container">
       <div className={styles.header}>

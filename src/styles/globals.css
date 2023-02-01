@@ -82,8 +82,20 @@ hr {
   border-color: var(--light-gray);
 }
 nav {
-  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 15px;
   border-bottom: 1px var(--light-gray) solid;
+  align-items: center;
+}
+.nav-logo {
+  font-size: 1.75em;
+  line-height: 0.75em;
+  display: block;
+  margin: auto;
+}
+.nav-span {
+  font-size: 1.75em;
 }
 .fs-14 {
   font-size: 14px;
@@ -118,7 +130,13 @@ nav {
   bottom: -25px;
   right: 10px;
 }
-
+.lang-btn {
+  font-size: 12px;
+  height: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  min-height: 1.5rem;
+}
 .my-btn {
   background-color: var(--main-orange);
   color: white;
