@@ -12,7 +12,7 @@ import { Schema } from "@/shared/typesense"
 import { useRouter } from "next/router"
 
 const countItemsInPage = 10
-const Search = () => {
+const Search = ({ messages }: any) => {
   const [inputValue, setInputValue] = useState("")
   const [searchValue, setSearchValue] = useState("")
   const [items, setItems] = useState<SearchResponseHit<Schema>[]>([])
@@ -72,7 +72,7 @@ const Search = () => {
             Search<span className="color-orange">.</span>
           </h1>
           <p className={styles.text}>
-            <span className="gray-text">Searching for information on</span>
+            <span className="gray-text">{messages.mainDesc}</span>
             <strong> Web3</strong>
           </p>
         </div>
@@ -94,7 +94,7 @@ const Search = () => {
               </div>
               <figure className="my-btn" onClick={(e) => handleSubmit(e)}>
                 <Image src={search} alt="search-icon" className={styles.image} />
-                <figcaption>Go!</figcaption>
+                <figcaption>{messages.search}</figcaption>
               </figure>
             </div>
           </form>
@@ -121,7 +121,13 @@ const Search = () => {
           currentPage={currentPage}
         />
       </div>
-      {<SettingModal showSetting={showSetting} setShowSetting={setShowSetting} />}
+      {
+        <SettingModal
+          showSetting={showSetting}
+          setShowSetting={setShowSetting}
+          messages={messages}
+        />
+      }
     </div>
   )
 }

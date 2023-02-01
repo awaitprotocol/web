@@ -34,7 +34,7 @@
 }
 
 body {
-  font-family: "Varela Round";
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana;
 }
 
 a {
@@ -140,7 +140,7 @@ figure.my-btn {
   padding: 5px 8px;
 }
 .items {
-  font-family: "Lato";
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   width: 70vw;
 }
 .item {
