@@ -10,6 +10,7 @@ import { Res } from "@/pages/api/search"
 import { SearchResponseHit } from "typesense/lib/Typesense/Documents"
 import { Schema } from "@/shared/typesense"
 import { useRouter } from "next/router"
+import classNames from "classnames"
 
 const countItemsInPage = 10
 const Search = ({ messages }: any) => {
@@ -76,13 +77,15 @@ const Search = ({ messages }: any) => {
   }
 
   return (
-    <div className="page-container">
-      <div className={styles.header}>
+    <div className={classNames("page-container", items.length && "page-container-top")}>
+      <div
+        className={classNames(styles.header, items.length ? styles.headerTop : styles.headerCenter)}
+      >
         <div>
-          <h1 className={styles.headerText}>
+          <h1 className={classNames(styles.headerText, items.length && styles.headerTextTop)}>
             Search<span className="color-orange">.</span>
           </h1>
-          <p className={styles.text}>
+          <p className={items.length ? "none" : styles.text}>
             <span className="gray-text">{messages.mainDesc}</span>
             <strong> Web3</strong>
           </p>

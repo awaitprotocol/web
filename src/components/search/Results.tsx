@@ -33,7 +33,7 @@ export const SearchResults = ({ items, searchValue, firstSearch, error }: Props)
     <>
       {!error &&
         items.map((item) => {
-          const snippet = item.highlights?.[0].snippets?.[0] || item.document.desc || ""
+          const snippet = item.highlights?.[0]?.snippets?.[0] || item.document.desc || ""
 
           return (
             <div key={item.document.id} className="item">
@@ -45,12 +45,15 @@ export const SearchResults = ({ items, searchValue, firstSearch, error }: Props)
               >
                 {item.document.title}
               </a>
-              <div>
+              <div className="ml-10">
                 <p className="gray-text fs-14">{item.document.desc}</p>
               </div>
               <hr />
               <div className="snippets-container">
-                <div className="ml-10 snippets" dangerouslySetInnerHTML={{ __html: snippet }} />
+                <div
+                  className="ml-10 mr-10 snippets"
+                  dangerouslySetInnerHTML={{ __html: snippet }}
+                />
               </div>
             </div>
           )
