@@ -1,4 +1,4 @@
-import { Nav } from "@/components"
+import { Nav, Footer } from "@/components"
 import "@/styles/globals.css"
 import type { AppProps } from "next/app"
 import { useRouter } from "next/router"
@@ -25,6 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <Nav dir={getDirection(langValue)} setLangValue={setLangValue} />
       <Component {...pageProps} dir={getDirection(langValue)} messages={messages[langValue]} />
+      <Footer messages={messages[langValue]} />
     </>
   )
 }

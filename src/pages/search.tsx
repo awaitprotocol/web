@@ -8,12 +8,16 @@ import { SearchResults, Pagination, SettingModal } from "@/components/search"
 import { LoadingSpinner, ErrorWindow } from "@/components"
 import { Res } from "@/pages/api/search"
 import { SearchResponseHit } from "typesense/lib/Typesense/Documents"
-import { Schema } from "@/shared/typesense"
+import { Messages, Schema } from "@/shared/typesense"
 import { useRouter } from "next/router"
 import classNames from "classnames"
 
+type Props = {
+  messages: Messages
+}
+
 const countItemsInPage = 10
-const Search = ({ messages }: any) => {
+const Search = ({ messages }: Props) => {
   const [startValue, setStartValue] = useState("")
   const [inputValue, setInputValue] = useState("")
   const [searchValue, setSearchValue] = useState("")
@@ -25,7 +29,7 @@ const Search = ({ messages }: any) => {
   const inputEl = useRef<HTMLInputElement>(null)
   const [showSetting, setShowSetting] = useState(false)
   const router = useRouter()
-  const getPath = () => router.asPath.split("?q=")[1]
+  const getPath = () => router?.query?.q
   const path = getPath()
 
   const handleSubmit = async (e?: SyntheticEvent<EventTarget>) => {
@@ -56,9 +60,9 @@ const Search = ({ messages }: any) => {
 
   useEffect(() => {
     if (path) {
-      setSearchValue(path)
-      setInputValue(path)
-      setStartValue(path)
+      setSearchValue(path as string)
+      setInputValue(path as string)
+      setStartValue(path as string)
       handleSubmit()
       return
     }
@@ -77,15 +81,13 @@ const Search = ({ messages }: any) => {
   }
 
   return (
-    <div className={classNames("page-container", items.length && "page-container-top")}>
-      <div
-        className={classNames(styles.header, items.length ? styles.headerTop : styles.headerCenter)}
-      >
+    <div className={classNames("page-container", path && "page-container-top")}>
+      <div className={classNames(styles.header, path ? styles.headerTop : styles.headerCenter)}>
         <div>
-          <h1 className={classNames(styles.headerText, items.length && styles.headerTextTop)}>
+          <h1 className={classNames(styles.headerText, path && styles.headerTextTop)}>
             Search<span className="color-orange">.</span>
           </h1>
-          <p className={items.length ? "none" : styles.text}>
+          <p className={path ? "none" : styles.text}>
             <span className="gray-text">{messages.mainDesc}</span>
             <strong> Web3</strong>
           </p>

@@ -31,4 +31,7 @@ export type Messages = {
   saveChanges: string
   chooseENS: string
   gateway: string
+  social: string
+  we: string
+  weDesc: string
 }
