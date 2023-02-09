@@ -3,7 +3,6 @@ import Image from "next/image"
 import logo from "@/assets/images/logo.svg"
 import twitter from "@/assets/images/twitter.svg"
 import github from "@/assets/images/github.svg"
-
 import { useRouter } from "next/router"
 
 type Props = {
