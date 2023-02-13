@@ -6,6 +6,7 @@ import { collection, Schema } from "@/shared/typesense"
 type Keys = keyof Schema
 type Parameters = SearchParams & {
   q: string
+  page: number
   query_by:
     | `${Keys}`
     | `${Keys}, ${Keys}`
@@ -14,14 +15,14 @@ type Parameters = SearchParams & {
   exclude_fields: Keys
   highlight_fields: Keys
   highlight_affix_num_tokens: number
-  page?: string
+  per_page: number
 }
 
 const querySchema = z.object({
   q: z
     .string({ required_error: "Query is required" })
     .min(2, { message: "Must be 2 or more characters long" }),
-  page: z.string(),
+  page: z.string({ required_error: "Query is required" }),
 })
 
 export type Res =
@@ -37,7 +38,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<Res>) {
 
   const parameters: Parameters = {
     q: query.data.q,
-    page: query.data?.page,
+    page: Number(query.data.page),
     query_by: "title, desc, text",
     exclude_fields: "text",
     highlight_fields: "text",

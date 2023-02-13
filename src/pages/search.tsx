@@ -45,7 +45,13 @@ const Search = ({ messages }: Props) => {
 
     setSearchValue(inputValue)
     setLoading(true)
-    const res = await fetch("api/search?q=" + inputValue + "&page=" + currentPage)
+    const res = await fetch(
+      "api/search?" +
+        new URLSearchParams({
+          q: inputValue,
+          page: currentPage.toString(),
+        }),
+    )
     setFirstSearch(true)
     if (!res.ok) {
       setError("Server error")
@@ -116,7 +122,7 @@ const Search = ({ messages }: Props) => {
               </div>
               <figure className="my-btn" onClick={(e) => handleSubmit(e)}>
                 <Image src={search} alt="search-icon" className={styles.image} />
-                <figcaption>{messages.search}</figcaption>
+                <figcaption className="search-text">{messages.search}</figcaption>
               </figure>
             </div>
           </form>

@@ -36,7 +36,13 @@
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana;
 }
-
+.App {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
+  min-height: 100vh;
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -290,21 +296,17 @@ figure {
   background-color: #f2f2f2;
 }
 footer {
-  position: absolute;
-  left: 0;
   width: 100%;
   background-color: #f2f2f2;
 }
-.bottom {
-  bottom: 0;
-}
 .footer-container {
+  margin-top: 30px;
+  font-size: 0.8rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   gap: 30px;
-  padding-top: 20px;
-  margin-top: 30px;
+  padding: 20px 0;
 }
 .footer-social {
   color: rgb(84, 84, 84);
@@ -334,6 +336,9 @@ footer {
   figure.my-btn {
     font-size: 12px;
   }
+  .btns {
+    top: 10px;
+  }
   .items {
     width: 93%;
   }
@@ -356,5 +361,8 @@ footer {
   }
   .footer-social {
     margin: 0;
+  }
+  .search-text {
+    display: none;
   }
 }

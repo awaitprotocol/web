@@ -22,10 +22,10 @@ export default function App({ Component, pageProps }: AppProps) {
   const [langValue, setLangValue] = useState((locale || defaultLocale) as keyof typeof messages)
 
   return (
-    <>
+    <div className="App">
       <Nav dir={getDirection(langValue)} setLangValue={setLangValue} />
       <Component {...pageProps} dir={getDirection(langValue)} messages={messages[langValue]} />
       <Footer messages={messages[langValue]} />
-    </>
+    </div>
   )
 }
