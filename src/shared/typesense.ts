@@ -23,3 +23,15 @@ export const client = new Typesense.Client({
 export const name = "sites"
 
 export const collection = client.collections<Schema>(name)
+
+export type Messages = {
+  mainDesc: string
+  search: string
+  close: string
+  saveChanges: string
+  chooseENS: string
+  gateway: string
+  social: string
+  we: string
+  weDesc: string
+}

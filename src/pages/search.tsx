@@ -1,18 +1,26 @@
 import Image from "next/image"
 import styles from "@/styles/search.module.css"
-import filters from "@/assets/images/filter.png"
-import close from "@/assets/images/close.png"
-import search from "@/assets/images/icons-search.png"
+import filters from "@/assets/images/filter.svg"
+import close from "@/assets/images/close.svg"
+import search from "@/assets/images/icons-search.svg"
 import { SyntheticEvent, useEffect, useRef, useState } from "react"
 import { SearchResults, Pagination, SettingModal } from "@/components/search"
 import { LoadingSpinner, ErrorWindow } from "@/components"
 import { Res } from "@/pages/api/search"
 import { SearchResponseHit } from "typesense/lib/Typesense/Documents"
-import { Schema } from "@/shared/typesense"
+import { Messages, Schema } from "@/shared/typesense"
+import { useRouter } from "next/router"
+import classNames from "classnames"
+
+type Props = {
+  messages: Messages
+}
 
 const countItemsInPage = 10
-const Search = () => {
+const Search = ({ messages }: Props) => {
+  const [startValue, setStartValue] = useState("")
   const [inputValue, setInputValue] = useState("")
+  const [searchValue, setSearchValue] = useState("")
   const [items, setItems] = useState<SearchResponseHit<Schema>[]>([])
   const [firstSearch, setFirstSearch] = useState(false)
   const [isLoading, setLoading] = useState(false)
@@ -20,16 +28,17 @@ const Search = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const inputEl = useRef<HTMLInputElement>(null)
   const [showSetting, setShowSetting] = useState(false)
+  const router = useRouter()
+  const getPath = () => router?.query?.q
+  const path = getPath()
 
-  useEffect(() => {
-    inputEl.current?.focus()
-  }, [])
-
-  const handleSubmit = async (e: SyntheticEvent<EventTarget>) => {
-    e.preventDefault()
-
+  const handleSubmit = async (e?: SyntheticEvent<EventTarget>) => {
+    e?.preventDefault()
     if (!inputValue) return
-
+    if (path !== inputValue) {
+      router.push("/search?q=" + inputValue)
+    }
+    setSearchValue(inputValue)
     setLoading(true)
     const res = await fetch("api/search?q=" + inputValue)
     setFirstSearch(true)
@@ -38,17 +47,28 @@ const Search = () => {
       setLoading(false)
       return
     }
-
     const data: Res = await res.json()
     if (data.success) {
       setItems(data.result.hits || [])
       setLoading(false)
       setError("")
+    } else {
+      setError("Error")
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (path) {
+      setSearchValue(path as string)
+      setInputValue(path as string)
+      setStartValue(path as string)
+      handleSubmit()
       return
     }
-    setError("Error")
-    setLoading(false)
-  }
+    inputEl.current?.focus()
+  }, [path, startValue])
+
   const countItems = items.length
   const lastItemsIndex = currentPage * countItemsInPage
   const firstItemsIndex = lastItemsIndex - countItemsInPage
@@ -57,17 +77,18 @@ const Search = () => {
   const cleanInput = () => {
     setInputValue("")
     inputEl.current?.focus()
+    setFirstSearch(false)
   }
 
   return (
-    <div className="page-container">
-      <div className={styles.header}>
+    <div className={classNames("page-container", path && "page-container-top")}>
+      <div className={classNames(styles.header, path ? styles.headerTop : styles.headerCenter)}>
         <div>
-          <h1 className={styles.headerText}>
+          <h1 className={classNames(styles.headerText, path && styles.headerTextTop)}>
             Search<span className="color-orange">.</span>
           </h1>
-          <p className={styles.text}>
-            <span className="gray-text">Searching for information on</span>
+          <p className={path ? "none" : styles.text}>
+            <span className="gray-text">{messages.mainDesc}</span>
             <strong> Web3</strong>
           </p>
         </div>
@@ -81,25 +102,15 @@ const Search = () => {
               onChange={(e) => setInputValue(e.target.value)}
             />
             <div className="float-right btns">
-              <div className={styles.container}>
-                <Image
-                  src={close}
-                  alt="close"
-                  className={styles.image}
-                  onClick={() => cleanInput()}
-                />
+              <div className={styles.container} onClick={() => cleanInput()}>
+                <Image src={close} alt="close" className={styles.image} />
               </div>
-              <div className={styles.container}>
-                <Image
-                  src={filters}
-                  alt="filters"
-                  className={styles.image}
-                  onClick={() => setShowSetting(true)}
-                />
+              <div className={styles.container} onClick={() => setShowSetting(true)}>
+                <Image src={filters} alt="filters" className={styles.image} />
               </div>
               <figure className="my-btn" onClick={(e) => handleSubmit(e)}>
                 <Image src={search} alt="search-icon" className={styles.image} />
-                <figcaption>Go!</figcaption>
+                <figcaption>{messages.search}</figcaption>
               </figure>
             </div>
           </form>
@@ -111,7 +122,7 @@ const Search = () => {
         ) : (
           <SearchResults
             items={currentItems}
-            inputValue={inputValue}
+            searchValue={searchValue}
             firstSearch={firstSearch}
             error={error}
           />
@@ -126,7 +137,13 @@ const Search = () => {
           currentPage={currentPage}
         />
       </div>
-      {<SettingModal showSetting={showSetting} setShowSetting={setShowSetting} />}
+      {
+        <SettingModal
+          showSetting={showSetting}
+          setShowSetting={setShowSetting}
+          messages={messages}
+        />
+      }
     </div>
   )
 }
