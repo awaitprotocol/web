@@ -17,13 +17,10 @@ type Props = {
 }
 
 const Search = ({ messages }: Props) => {
-  const [startValue, setStartValue] = useState("")
   const [inputValue, setInputValue] = useState("")
-  const [searchValue, setSearchValue] = useState("")
   const [items, setItems] = useState<SearchResponseHit<Schema>[]>([])
   const [itemsFound, setItemsFound] = useState(0)
   const [countItemsInPage, setCountItemsInPage] = useState(10)
-  const [firstSearch, setFirstSearch] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const inputEl = useRef<HTMLInputElement>(null)
@@ -31,42 +28,47 @@ const Search = ({ messages }: Props) => {
   const router = useRouter()
   const [currentPage, setCurrentPage] = useState(Number(router.asPath.split("&page=")[1]) || 1)
 
-  const pathQ = router?.query?.q
-  const handleSubmit = async (e?: SyntheticEvent<EventTarget>) => {
-    e?.preventDefault()
+  const pathQ = router.query.q
+
+  const handleSubmit = async (event?: SyntheticEvent<EventTarget>) => {
+    event?.preventDefault()
     if (!inputValue) return
-    if (pathQ !== inputValue && inputValue !== startValue) {
-      router.replace(`/search?q=${inputValue}`)
+
+    if (pathQ !== inputValue) {
+      router.push("/search?q=" + inputValue)
       setCurrentPage(1)
     }
-    if (pathQ !== inputValue) router.push("/search?q=" + inputValue)
-    if (currentPage === 1) router.replace(`/search?q=${inputValue}`)
-    if (currentPage !== 1) router.push("/search?q=" + inputValue + "&page=" + currentPage)
 
-    setSearchValue(inputValue)
-    setLoading(true)
-    const res = await fetch(
-      "api/search?" +
-        new URLSearchParams({
-          q: inputValue,
-          page: currentPage.toString(),
-        }),
-    )
-    setFirstSearch(true)
-    if (!res.ok) {
-      setError("Server error")
-      setLoading(false)
-      return
-    }
-    const data: Res = await res.json()
-    if (data.success) {
-      setItems(data.result.hits || [])
-      setCountItemsInPage(data.result.request_params.per_page || 10)
-      setItemsFound(data.result.found)
-      setLoading(false)
-      setError("")
-    } else {
+    if (currentPage === 1) router.replace("/search?q=" + inputValue)
+    if (currentPage !== 1)
+      router.push(
+        "/search?" +
+          new URLSearchParams({
+            q: inputValue,
+            page: currentPage.toString(),
+          }),
+      )
+
+    try {
+      setLoading(true)
+      const res = await fetch(
+        "/api/search?" +
+          new URLSearchParams({
+            q: inputValue,
+            page: currentPage.toString(),
+          }),
+      )
+
+      const data: Res = await res.json()
+      if (data.success) {
+        setItems(data.result.hits || [])
+        setCountItemsInPage(data.result.request_params.per_page || 10)
+        setItemsFound(data.result.found)
+        setError("")
+      }
+    } catch (error) {
       setError("Error")
+    } finally {
       setLoading(false)
     }
   }
@@ -76,21 +78,13 @@ const Search = ({ messages }: Props) => {
   }, [currentPage])
 
   useEffect(() => {
-    if (pathQ) {
-      setSearchValue(pathQ as string)
-      setInputValue(pathQ as string)
-      setStartValue(pathQ as string)
+    if (typeof pathQ === "string" && pathQ) {
+      setInputValue(pathQ)
       handleSubmit()
       return
     }
     inputEl.current?.focus()
-  }, [pathQ, startValue])
-
-  const cleanInput = () => {
-    setInputValue("")
-    inputEl.current?.focus()
-    setFirstSearch(false)
-  }
+  }, [pathQ])
 
   return (
     <div className={classNames("page-container", pathQ && "page-container-top")}>
@@ -105,7 +99,7 @@ const Search = ({ messages }: Props) => {
           </p>
         </div>
         <div>
-          <form className={styles.searchForm} onSubmit={(e) => handleSubmit(e)}>
+          <form className={styles.searchForm} onSubmit={handleSubmit}>
             <input
               className={styles.search}
               type="text"
@@ -114,13 +108,19 @@ const Search = ({ messages }: Props) => {
               onChange={(e) => setInputValue(e.target.value)}
             />
             <div className="float-right btns">
-              <div className={styles.container} onClick={() => cleanInput()}>
+              <div
+                className={styles.container}
+                onClick={() => {
+                  setInputValue("")
+                  inputEl.current?.focus()
+                }}
+              >
                 <Image src={close} alt="close" className={styles.image} />
               </div>
               <div className={styles.container} onClick={() => setShowSetting(true)}>
                 <Image src={filters} alt="filters" className={styles.image} />
               </div>
-              <figure className="my-btn" onClick={(e) => handleSubmit(e)}>
+              <figure className="my-btn" onClick={handleSubmit}>
                 <Image src={search} alt="search-icon" className={styles.image} />
                 <figcaption className="search-text">{messages.search}</figcaption>
               </figure>
@@ -128,19 +128,17 @@ const Search = ({ messages }: Props) => {
           </form>
         </div>
       </div>
+
       <div className="items">
         {isLoading ? (
           <LoadingSpinner />
         ) : (
-          <SearchResults
-            items={items}
-            searchValue={searchValue}
-            firstSearch={firstSearch}
-            error={error}
-          />
+          <SearchResults items={items} searchValue={inputValue} firstSearch={false} error={error} />
         )}
       </div>
+
       {error && !isLoading && <ErrorWindow error={error} />}
+
       <div>
         <Pagination
           countItemsInPage={countItemsInPage}
@@ -149,13 +147,8 @@ const Search = ({ messages }: Props) => {
           currentPage={currentPage}
         />
       </div>
-      {
-        <SettingModal
-          showSetting={showSetting}
-          setShowSetting={setShowSetting}
-          messages={messages}
-        />
-      }
+
+      <SettingModal showSetting={showSetting} setShowSetting={setShowSetting} messages={messages} />
     </div>
   )
 }
