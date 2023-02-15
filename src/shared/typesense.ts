@@ -17,7 +17,7 @@ export const client = new Typesense.Client({
     },
   ],
   apiKey: process.env.SEARCH_API_KEY || "xyz",
-  connectionTimeoutSeconds: 2,
+  connectionTimeoutSeconds: 3,
 })
 
 export const name = "sites"

@@ -8,7 +8,7 @@ import { getProperty, getUrl } from "./analyzer"
 
 loadEnvConfig(process.cwd())
 
-const queue = new PQueue({ concurrency: 20 }).on("idle", () => {
+const queue = new PQueue({ concurrency: 15 }).on("idle", () => {
   console.log(`Queue is idle. Size: ${queue.size}  Pending: ${queue.pending}`)
 })
 
@@ -32,7 +32,7 @@ async function main() {
 
           return res.text()
         })
-        .catch((error) => console.error("fetch", domain, error.message))
+        .catch((error) => console.error("fetch", domain, url, error.message, error?.code))
 
       if (!html) return
       const $ = load(html)
@@ -57,7 +57,7 @@ async function main() {
       collection
         .documents()
         .upsert(document)
-        .then(({ date }) => console.log(url, date))
+        .then(({ date }) => console.log("saved", domain, date))
     })
   }
 }

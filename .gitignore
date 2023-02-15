@@ -20,6 +20,6 @@ next-env.d.ts
 # project
 .env*.local
 /build
-/src/crawler/ens.txt
+/src/crawler/ens*.txt
 /ens_list
 .env
