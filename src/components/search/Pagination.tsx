@@ -15,8 +15,7 @@ export const Pagination = ({
   currentPage,
 }: PropsPagination) => {
   const pageCount = Math.ceil(countItems / countItemsInPage)
-  const pageNumbers: number[] = Array.from({ length: pageCount }, (_, i) => i)
-
+  const pageNumbers: number[] = Array.from({ length: pageCount }, (_, i) => i + 1)
   return (
     <>
       {pageNumbers.length > 1 && (

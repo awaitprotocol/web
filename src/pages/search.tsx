@@ -16,31 +16,42 @@ type Props = {
   messages: Messages
 }
 
-const countItemsInPage = 10
 const Search = ({ messages }: Props) => {
   const [startValue, setStartValue] = useState("")
   const [inputValue, setInputValue] = useState("")
   const [searchValue, setSearchValue] = useState("")
   const [items, setItems] = useState<SearchResponseHit<Schema>[]>([])
+  const [itemsFound, setItemsFound] = useState(0)
+  const [countItemsInPage, setCountItemsInPage] = useState(10)
   const [firstSearch, setFirstSearch] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [error, setError] = useState("")
-  const [currentPage, setCurrentPage] = useState(1)
   const inputEl = useRef<HTMLInputElement>(null)
   const [showSetting, setShowSetting] = useState(false)
   const router = useRouter()
-  const getPath = () => router?.query?.q
-  const path = getPath()
+  const [currentPage, setCurrentPage] = useState(Number(router.asPath.split("&page=")[1]) || 1)
 
+  const pathQ = router?.query?.q
   const handleSubmit = async (e?: SyntheticEvent<EventTarget>) => {
     e?.preventDefault()
     if (!inputValue) return
-    if (path !== inputValue) {
-      router.push("/search?q=" + inputValue)
+    if (pathQ !== inputValue && inputValue !== startValue) {
+      router.replace(`/search?q=${inputValue}`)
+      setCurrentPage(1)
     }
+    if (pathQ !== inputValue) router.push("/search?q=" + inputValue)
+    if (currentPage === 1) router.replace(`/search?q=${inputValue}`)
+    if (currentPage !== 1) router.push("/search?q=" + inputValue + "&page=" + currentPage)
+
     setSearchValue(inputValue)
     setLoading(true)
-    const res = await fetch("api/search?q=" + inputValue)
+    const res = await fetch(
+      "api/search?" +
+        new URLSearchParams({
+          q: inputValue,
+          page: currentPage.toString(),
+        }),
+    )
     setFirstSearch(true)
     if (!res.ok) {
       setError("Server error")
@@ -50,6 +61,8 @@ const Search = ({ messages }: Props) => {
     const data: Res = await res.json()
     if (data.success) {
       setItems(data.result.hits || [])
+      setCountItemsInPage(data.result.request_params.per_page || 10)
+      setItemsFound(data.result.found)
       setLoading(false)
       setError("")
     } else {
@@ -59,20 +72,19 @@ const Search = ({ messages }: Props) => {
   }
 
   useEffect(() => {
-    if (path) {
-      setSearchValue(path as string)
-      setInputValue(path as string)
-      setStartValue(path as string)
+    handleSubmit()
+  }, [currentPage])
+
+  useEffect(() => {
+    if (pathQ) {
+      setSearchValue(pathQ as string)
+      setInputValue(pathQ as string)
+      setStartValue(pathQ as string)
       handleSubmit()
       return
     }
     inputEl.current?.focus()
-  }, [path, startValue])
-
-  const countItems = items.length
-  const lastItemsIndex = currentPage * countItemsInPage
-  const firstItemsIndex = lastItemsIndex - countItemsInPage
-  const currentItems = items.slice(firstItemsIndex, lastItemsIndex)
+  }, [pathQ, startValue])
 
   const cleanInput = () => {
     setInputValue("")
@@ -81,13 +93,13 @@ const Search = ({ messages }: Props) => {
   }
 
   return (
-    <div className={classNames("page-container", path && "page-container-top")}>
-      <div className={classNames(styles.header, path ? styles.headerTop : styles.headerCenter)}>
+    <div className={classNames("page-container", pathQ && "page-container-top")}>
+      <div className={classNames(styles.header, pathQ ? styles.headerTop : styles.headerCenter)}>
         <div>
-          <h1 className={classNames(styles.headerText, path && styles.headerTextTop)}>
+          <h1 className={classNames(styles.headerText, pathQ && styles.headerTextTop)}>
             Search<span className="color-orange">.</span>
           </h1>
-          <p className={path ? "none" : styles.text}>
+          <p className={pathQ ? "none" : styles.text}>
             <span className="gray-text">{messages.mainDesc}</span>
             <strong> Web3</strong>
           </p>
@@ -110,7 +122,7 @@ const Search = ({ messages }: Props) => {
               </div>
               <figure className="my-btn" onClick={(e) => handleSubmit(e)}>
                 <Image src={search} alt="search-icon" className={styles.image} />
-                <figcaption>{messages.search}</figcaption>
+                <figcaption className="search-text">{messages.search}</figcaption>
               </figure>
             </div>
           </form>
@@ -121,7 +133,7 @@ const Search = ({ messages }: Props) => {
           <LoadingSpinner />
         ) : (
           <SearchResults
-            items={currentItems}
+            items={items}
             searchValue={searchValue}
             firstSearch={firstSearch}
             error={error}
@@ -132,7 +144,7 @@ const Search = ({ messages }: Props) => {
       <div>
         <Pagination
           countItemsInPage={countItemsInPage}
-          countItems={countItems}
+          countItems={itemsFound}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
         />
