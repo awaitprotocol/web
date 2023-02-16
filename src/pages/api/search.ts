@@ -31,7 +31,6 @@ export type Res =
 
 async function handler(req: NextApiRequest, res: NextApiResponse<Res>) {
   const query = querySchema.safeParse(req.query)
-  console.log(query)
   if (!query.success) {
     return res.status(200).json({ success: false, error: query.error.issues[0] })
   }

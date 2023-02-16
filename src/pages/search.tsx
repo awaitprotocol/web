@@ -17,7 +17,11 @@ type Props = {
 }
 
 const Search = ({ messages }: Props) => {
+  const router = useRouter()
+  const pathQ = router.query.q
   const [inputValue, setInputValue] = useState("")
+  const [searchValue, setSearchValue] = useState("")
+  const [firstSearch, setFirstSearch] = useState(false)
   const [items, setItems] = useState<SearchResponseHit<Schema>[]>([])
   const [itemsFound, setItemsFound] = useState(0)
   const [countItemsInPage, setCountItemsInPage] = useState(10)
@@ -25,10 +29,7 @@ const Search = ({ messages }: Props) => {
   const [error, setError] = useState("")
   const inputEl = useRef<HTMLInputElement>(null)
   const [showSetting, setShowSetting] = useState(false)
-  const router = useRouter()
   const [currentPage, setCurrentPage] = useState(Number(router.asPath.split("&page=")[1]) || 1)
-
-  const pathQ = router.query.q
 
   const handleSubmit = async (event?: SyntheticEvent<EventTarget>) => {
     event?.preventDefault()
@@ -64,6 +65,7 @@ const Search = ({ messages }: Props) => {
         setItems(data.result.hits || [])
         setCountItemsInPage(data.result.request_params.per_page || 10)
         setItemsFound(data.result.found)
+        setFirstSearch(true)
         setError("")
       }
     } catch (error) {
@@ -72,7 +74,6 @@ const Search = ({ messages }: Props) => {
       setLoading(false)
     }
   }
-
   useEffect(() => {
     handleSubmit()
   }, [currentPage])
@@ -80,11 +81,12 @@ const Search = ({ messages }: Props) => {
   useEffect(() => {
     if (typeof pathQ === "string" && pathQ) {
       setInputValue(pathQ)
+      setSearchValue(pathQ)
       handleSubmit()
       return
     }
     inputEl.current?.focus()
-  }, [pathQ])
+  }, [pathQ, searchValue])
 
   return (
     <div className={classNames("page-container", pathQ && "page-container-top")}>
@@ -111,6 +113,7 @@ const Search = ({ messages }: Props) => {
               <div
                 className={styles.container}
                 onClick={() => {
+                  setFirstSearch(false)
                   setInputValue("")
                   inputEl.current?.focus()
                 }}
@@ -133,7 +136,12 @@ const Search = ({ messages }: Props) => {
         {isLoading ? (
           <LoadingSpinner />
         ) : (
-          <SearchResults items={items} searchValue={inputValue} firstSearch={false} error={error} />
+          <SearchResults
+            items={items}
+            searchValue={searchValue}
+            firstSearch={firstSearch}
+            error={error}
+          />
         )}
       </div>
 
@@ -147,10 +155,8 @@ const Search = ({ messages }: Props) => {
           currentPage={currentPage}
         />
       </div>
-
       <SettingModal showSetting={showSetting} setShowSetting={setShowSetting} messages={messages} />
     </div>
   )
 }
-
 export default Search
