@@ -155,7 +155,6 @@ const Search = ({ messages }: Props) => {
           currentPage={currentPage}
         />
       </div>
-
       <SettingModal showSetting={showSetting} setShowSetting={setShowSetting} messages={messages} />
     </div>
   )
